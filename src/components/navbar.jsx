@@ -1,18 +1,9 @@
 import React, { Component } from 'react';
 import {
-    Collapse,
     Navbar,
-    NavbarToggler,
     NavbarBrand,
-    Nav,
-    NavItem,
     NavLink,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
-    Container } from 'reactstrap';
-import { Button } from 'semantic-ui-react';
+} from 'reactstrap';
 
 const NavBarStyle = {backgroundColor: "#ffffff"}
 const NavBarTextStyle = {color: "white",
@@ -31,12 +22,12 @@ class NavigationBar extends Component {
                 </Navbar>
 
                 <Navbar className="navbar-secondary border-bottom border-right border-dark m1-auto">
-                    <NavItem style={NavBarTextStyle}className ="border-right border-dark col-6">
+                    <NavLink to="/secondpage" style={NavBarTextStyle}className ="border-right border-dark col-6">
                         Add Session
-                    </NavItem>
-                    <NavItem style = {NavBarTextStyle} className ="col-6">
+                    </NavLink>
+                    <NavLink to ="/" style = {NavBarTextStyle} className ="col-6">
                         View Sessions
-                    </NavItem>
+                    </NavLink>
                 </Navbar>
             </div>
           );

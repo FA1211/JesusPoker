@@ -3,9 +3,6 @@ import { Bar } from 'react-chartjs-2';
 import { Card, CardBody, CardTitle } from 'reactstrap';
 import config from './config.js';
 
-
-const bodyStyle = {
-}
 const tableURl = `https://sheets.googleapis.com/v4/spreadsheets/${ config.spreadsheetId }/values:batchGet?ranges=Sheet1&majorDimension=ROWS&key=${ config.API_KEY }`
 
 class ChartWindow extends Component {

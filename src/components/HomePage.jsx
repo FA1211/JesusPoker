@@ -14,17 +14,15 @@ const bgStyle = {
   
   }
 
+const bgColor = { backgroundColor:"#081B33"}
+
 class HomePage extends Component {
     state = {  }
     render() { 
         return (
-        <div style ={bgStyle} className="App">
-        <NavigationBar>
-        </NavigationBar>
-        <div  style = {{ backgroundColor:"#081B33"}}>
+        <div style = {bgColor} >
         <Container fluid>
-
-          <Row className="mt-4">
+          <Row className="mt-2 mb-2">
               <Col xs ="12" md="6">
                 <BestPlayerLine title="Current Leader">
                 </BestPlayerLine>
@@ -37,7 +35,6 @@ class HomePage extends Component {
           </Row>
         </Container>
         </div>
-    </div>
           );
     }
 }
