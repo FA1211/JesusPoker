@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
-import BestPlayerLine from './components/BestPlayerLine';
+import SessionForm from './components/SessionForm'
 import HomePage from './components/HomePage';
 import NavigationBar from './components/navbar'
 
@@ -15,7 +15,7 @@ const bgStyle = {
   flexDirection : "column",
   backgroundColor: "#17223b",
   width: "100vw",
-  height: "100vh",
+  minHeight: "100vh",
   margin: "0px",
   padding: "0px",
 }
@@ -28,8 +28,8 @@ function App() {
     <div style = {bgStyle}>
       <NavigationBar/>
       <Switch>
-      <Route path="/" component={HomePage} exact/>
-      <Route path="/secondpage" component={BestPlayerLine}/>
+      <Route path="/add-session" component={SessionForm}></Route> 
+      <Route path="/" component={HomePage}/>
       </Switch>
     </div>
     </BrowserRouter>

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import {
     Navbar,
-    NavbarBrand,
-    NavLink,
+    NavbarBrand
 } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
 
 const NavBarStyle = {backgroundColor: "#ffffff"}
-const NavBarTextStyle = {color: "white",
-                        listStyle: "none"}
+const NavBarTextStyle = {color: "white", textAlign: "center"}
 
 
 class NavigationBar extends Component {
@@ -16,13 +15,13 @@ class NavigationBar extends Component {
         return (
             <div >
                 <Navbar style={NavBarStyle} className="border-bottom border-dark" light>
-                <NavbarBrand className="ml-2 mb-0 h1">
-                    Jesus Poker 
+                <NavbarBrand href="/" className="ml-2 mb-0 h1">
+                        Jesus Poker
                 </NavbarBrand>
                 </Navbar>
 
                 <Navbar className="navbar-secondary border-bottom border-right border-dark m1-auto">
-                    <NavLink to="/secondpage" style={NavBarTextStyle}className ="border-right border-dark col-6">
+                    <NavLink to="/add-session" style={NavBarTextStyle} className ="border-right border-dark col-6">
                         Add Session
                     </NavLink>
                     <NavLink to ="/" style = {NavBarTextStyle} className ="col-6">
