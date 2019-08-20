@@ -1,14 +1,15 @@
 import React from 'react';
 import {Button} from 'reactstrap'
 
-const NameButton = (props) => {
+const NameButton = props => {
+    console.log(props)
     return ( 
     <Button
         id = {props.index}
-        onClick={() => props.onCheckboxBtnClick(props.index)}
+        onClick={props.onClick}
         active={props.isSelected}
         className= "col-12"
-        style ={{backgroundColor:"#FFFFFF"}}> {props.name} </Button> );
+        style ={props.style}> {props.name} </Button> );
 }
  
 export default NameButton;

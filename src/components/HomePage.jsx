@@ -1,18 +1,7 @@
 import { Col, Container, Row } from 'reactstrap';
-import NavigationBar from './navbar';
 import ChartWindow from './poker-chart';
 import React, { Component } from 'react';
 import BestPlayerLine from './BestPlayerLine'
-const bgStyle = {
-    display: "flex",
-    flexDirection : "column",
-    backgroundColor: "#17223b",
-    width: "100vw",
-    height: "100vh",
-    margin: "0px",
-    padding: "0px",
-  
-  }
 
 const bgColor = { backgroundColor:"#081B33"}
 

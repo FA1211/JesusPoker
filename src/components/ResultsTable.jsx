@@ -73,6 +73,7 @@ class ResultsTable extends Component {
                             return <tr key={Math.random()}>{playerRow}</tr>
                         }
                         )
+
                     }
             </tbody>
         </Table>);

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {Button, Card, CardText, Col, Container, Label, Form, FormGroup, Input,Row } from 'reactstrap';
-
+import { Button, Card, CardText, Col, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap';
+import PlayerScoreRow from './PlayerScoreRow';
 
 const tStyle = { color:"white", textAlign:"center", fontFamily: "Arial"}
 
@@ -54,7 +54,7 @@ class SessionForm extends Component {
           this.state.cSelected.splice(index, 1);
         }
         console.log(this.state.cSelected)
-        this.setState({ cSelected: [...this.state.cSelected] });
+        //this.setState({ cSelected: [...this.state.cSelected] });
       }
 
       componentDidMount() {
@@ -84,35 +84,19 @@ class SessionForm extends Component {
 
                 <FormGroup>
                     {this.state.data.map(
-                        (p, index) => {
-                        return <Row sm ={12}>
-
-                            <Col md={6} >
-                                <Button
-                                    id = {index}
-                                    onClick={() => this.onCheckboxBtnClick(index)}
-                                    active={this.state.cSelected.includes(index)}
-                                    className=" mt-0 mb-0 col-12"
-                                    style ={{backgroundColor:this.randomColor(index)}}>
-                                {p}
-                                </Button>
-                            </Col>
-
-                            <Col md = {6}>
-                                <Input
-                                active={this.state.cSelected.includes(index)}
-                                value={this.handleValue(index)} 
-                                disabled={!this.state.cSelected.includes(index)}
-                                id= "exampleNumber" 
-                                type="number"
-                                placeholder={this.ptext(index)} 
-                                onChange={e => this.handleChange(e)}>
-                                </Input>
-                            </Col>
-                            
-                        </Row>
-                    })}
-                </FormGroup>  
+                        (player,index) =>
+                            {
+                            return <PlayerScoreRow 
+                            buttonProps = {{
+                                id:index,
+                                onClick:this.onCheckboxBtnClick(index),
+                                className:" mt-0 mb-0 col-12",
+                                style :{backgroundColor:this.randomColor(index)},
+                                name:player                             
+                            }}/>
+                            }
+                    )}    
+                </FormGroup> 
 
                 <FormGroup>
                     <Row>
