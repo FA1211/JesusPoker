@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
-import {
-    Navbar,
-    NavbarBrand
-} from 'reactstrap';
+import { Navbar, NavbarBrand } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
-
-const NavBarStyle = {backgroundColor: "#ffffff"}
-const NavBarTextStyle = {color: "white", textAlign: "center"}
-
+import {NavBarStyle, NavBarTextStyle} from './styles.jsx';
 
 class NavigationBar extends Component {
     state = {  }

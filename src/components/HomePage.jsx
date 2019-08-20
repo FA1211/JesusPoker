@@ -2,8 +2,8 @@ import { Col, Container, Row } from 'reactstrap';
 import ChartWindow from './poker-chart';
 import React, { Component } from 'react';
 import BestPlayerLine from './BestPlayerLine'
+import { bgColor } from './styles.jsx'  
 
-const bgColor = { backgroundColor:"#081B33"}
 
 class HomePage extends Component {
     state = {  }
