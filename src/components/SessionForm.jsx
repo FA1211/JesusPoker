@@ -6,7 +6,8 @@ const tStyle = { color:"white", textAlign:"center", fontFamily: "Arial"}
 
 class SessionForm extends Component {
     state = { 
-        data:["Joao","Fadle","Kyle","Jacob","Josh", "George", "Harry","Philip","JT"],
+        names:["Joao","Fadle","Kyle","Jacob","Josh", "George", "Harry","Philip","JT"],
+        inputs: [],
         colors:["#081B33BF","#152642BF","#2F4562BF","#767D92BF","#353C51BF"],
         cSelected: [],
         value: "" }
@@ -33,11 +34,15 @@ class SessionForm extends Component {
     }
 
     handleChange = (event) => {
-        this.setState({value: event.target.value});
-        console.log(this.state.value)
+        const name3 = event.target.name
+        this.setState({
+            ...this.state,
+            [event.target.name]: event.target.value
+          })
     }
 
     handleValue = (index) => {
+        console.log(index)
         const selectedIndex = this.state.cSelected.indexOf(index);
         let newValue = this.state.value
         if (selectedIndex < 0){
@@ -54,7 +59,7 @@ class SessionForm extends Component {
           this.state.cSelected.splice(index, 1);
         }
         console.log(this.state.cSelected)
-        //this.setState({ cSelected: [...this.state.cSelected] });
+        this.setState({ cSelected: [...this.state.cSelected] });
       }
 
       componentDidMount() {
@@ -83,7 +88,7 @@ class SessionForm extends Component {
                 </FormGroup>
 
                 <FormGroup>
-                    {this.state.data.map(
+                    {this.state.names.map(
                         (p, index) => {
                         return <Row sm ={12}>
 
@@ -99,9 +104,9 @@ class SessionForm extends Component {
 
                             <Col md = {6}>
                                 <Input
-                                value={this.handleValue(index)} 
-                                disabled={!this.state.cSelected.includes(index)}
-                                id= "exampleNumber" 
+                                id= {index}
+                                name={p}
+                                disabled={!this.state.cSelected.includes(index)} 
                                 type="number"
                                 placeholder={this.ptext(index)} 
                                 onChange={e => this.handleChange(e)}>
