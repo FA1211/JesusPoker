@@ -1,14 +1,8 @@
 import { Col, Container, Row } from 'reactstrap';
-<<<<<<< HEAD
-import ChartWindow from './poker-chart';
 import React, { Component } from 'react';
 import BestPlayerLine from './BestPlayerLine'
-=======
 import ChartWindow from './ChartWindow';
-import React, { Component } from 'react';
-import BestPlayerLine from './BestPlayerLine'
-import { bgColor } from './styles.jsx'  
->>>>>>> 7ef6b1d810f2ba5e1a620bf2ea0fc83b77d69a09
+import {bgColor} from './styles.jsx'
 
 
 class HomePage extends Component {
