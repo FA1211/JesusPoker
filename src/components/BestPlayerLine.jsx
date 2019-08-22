@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Line} from 'react-chartjs-2';
 import {Card, CardBody, CardTitle} from 'reactstrap';
-import config from './config.js';
+import {spreadsheetURL} from './config';
 
 const options ={
     legend: {
@@ -23,7 +23,7 @@ const options ={
        }]
       },
   }
-const tableURl = `https://sheets.googleapis.com/v4/spreadsheets/${ config.spreadsheetId }/values:batchGet?ranges=Sheet1&majorDimension=ROWS&key=${ config.API_KEY }`
+
 
 class BestPlayerLine extends Component {
     
@@ -36,7 +36,7 @@ class BestPlayerLine extends Component {
      
 
      getChartData = () => {
-        return fetch(tableURl).then(response => response.json()).then(
+        return fetch(spreadsheetURL).then(response => response.json()).then(
             data => {
             let allRows = data.valueRanges[0].values;
             let otherRows = allRows.slice(1)

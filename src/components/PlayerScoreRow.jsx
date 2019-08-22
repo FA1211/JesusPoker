@@ -1,13 +1,16 @@
 import ScoreInputBox from "./ScoreInputBox";
+import NameButton from './NameButton'
+import React from 'react';
+import {Row, Col} from 'reactstrap';
 
-const PlayerScoreRow = (props) => {
+const PlayerScoreRow = props => {
     return ( 
         <Row sm ={12}>
             <Col md={6}>
-                <NameButton props = {props.buttonProps}/>
+                <NameButton {...props.buttonProps} />
             </Col>
             <Col md = {6}>
-                <ScoreInputBox props = {props.inputBoxProps}/>
+                <ScoreInputBox {...props.inputBoxProps}/>
             </Col>
     </Row>);
 }

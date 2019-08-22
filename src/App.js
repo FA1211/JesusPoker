@@ -3,13 +3,13 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import SessionForm from './components/SessionForm'
 import HomePage from './components/HomePage';
+<<<<<<< Updated upstream
+import NavigationBar from './components/NavigationBar'
+import {bgStyle} from './components/styles'
+=======
 import NavigationBar from './components/navbar'
 
-const tableTextStyle = {
-  color: "#767D92",
-  fontSize: "medium",
-  fontWeight: "bold"
-}
+
 const bgStyle = {
   display: "flex",
   flexDirection : "column",
@@ -19,6 +19,7 @@ const bgStyle = {
   margin: "0px",
   padding: "0px",
 }
+>>>>>>> Stashed changes
 
 function App() {
 

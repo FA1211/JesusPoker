@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {Button, Card, CardText, Col, Container, Label, Form, FormGroup, Input,Row } from 'reactstrap';
-
+import { Button, Card, CardText, Col, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap';
+import PlayerScoreRow from './PlayerScoreRow';
 
 const tStyle = { color:"white", textAlign:"center", fontFamily: "Arial"}
 
@@ -54,7 +54,7 @@ class SessionForm extends Component {
           this.state.cSelected.splice(index, 1);
         }
         console.log(this.state.cSelected)
-        this.setState({ cSelected: [...this.state.cSelected] });
+        //this.setState({ cSelected: [...this.state.cSelected] });
       }
 
       componentDidMount() {
