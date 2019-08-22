@@ -3,19 +3,6 @@ import {Line} from 'react-chartjs-2';
 import {Card, CardBody, CardTitle} from 'reactstrap';
 import config from './config.js';
 
-const lineData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [
-      {
-        label: 'My First dataset',
-        backgroundColor: '#2F4562',
-        pointStrokeColor: '#2F4562',
-        pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(220,220,220,1)',
-        data: [65, 59, 80, 81, 56, 55, 40],
-      }
-    ]
-  }
 const options ={
     legend: {
       display: false

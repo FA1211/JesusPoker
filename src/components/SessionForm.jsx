@@ -91,7 +91,6 @@ class SessionForm extends Component {
                                 <Button
                                     id = {index}
                                     onClick={() => this.onCheckboxBtnClick(index)}
-                                    active={this.state.cSelected.includes(index)}
                                     className=" mt-0 mb-0 col-12"
                                     style ={{backgroundColor:this.randomColor(index)}}>
                                 {p}
@@ -100,7 +99,6 @@ class SessionForm extends Component {
 
                             <Col md = {6}>
                                 <Input
-                                active={this.state.cSelected.includes(index)}
                                 value={this.handleValue(index)} 
                                 disabled={!this.state.cSelected.includes(index)}
                                 id= "exampleNumber" 
