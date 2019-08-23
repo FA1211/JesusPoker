@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import { Button, Card, CardText, Col, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap';
-import PlayerScoreRow from './PlayerScoreRow';
 
 const tStyle = { color:"white", textAlign:"center", fontFamily: "Arial"}
 
 class SessionForm extends Component {
     state = { 
         names:["Joao","Fadle","Kyle","Jacob","Josh", "George", "Harry","Philip","JT"],
-        inputs: [],
         colors:["#081B33BF","#152642BF","#2F4562BF","#767D92BF","#353C51BF"],
         cSelected: [],
-        value: "" }
+        formData:{}
+     }
 
     randomColor = (selected) => {
         const index = this.state.cSelected.indexOf(selected);
@@ -34,10 +33,11 @@ class SessionForm extends Component {
     }
 
     handleChange = (event) => {
-        const name3 = event.target.name
+        let oldformData = {...this.state.formData}
+        oldformData[event.target.name]=event.target.value
+        console.log(oldformData)
         this.setState({
             ...this.state,
-            [event.target.name]: event.target.value
           })
     }
 
@@ -89,23 +89,23 @@ class SessionForm extends Component {
 
                 <FormGroup>
                     {this.state.names.map(
-                        (p, index) => {
+                        (playerName, index) => {
                         return <Row sm ={12}>
 
                             <Col md={6} >
                                 <Button
-                                    id = {index}
+                                    id = {4141231241+index}
                                     onClick={() => this.onCheckboxBtnClick(index)}
                                     className=" mt-0 mb-0 col-12"
                                     style ={{backgroundColor:this.randomColor(index)}}>
-                                {p}
+                                {playerName}
                                 </Button>
                             </Col>
 
                             <Col md = {6}>
                                 <Input
                                 id= {index}
-                                name={p}
+                                name={playerName}
                                 disabled={!this.state.cSelected.includes(index)} 
                                 type="number"
                                 placeholder={this.ptext(index)} 
