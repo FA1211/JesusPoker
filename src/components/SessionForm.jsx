@@ -34,6 +34,7 @@ class SessionForm extends Component {
 
     handleChange = (event) => {
         let newFormData = {...this.state.formData}
+        console.log(this.state.formData)
         newFormData[event.target.name] = event.target.value
         this.setState({
             ...this.state,
@@ -42,7 +43,6 @@ class SessionForm extends Component {
     }
 
     handleValue = (index) => {
-        console.log(index)
         const selectedIndex = this.state.cSelected.indexOf(index);
         let newValue = this.state.value
         if (selectedIndex < 0){
@@ -73,7 +73,11 @@ class SessionForm extends Component {
                     <Label for="exampleDate" style={{color:"white"}}>
                         Date
                     </Label>
-                    <Input id= "exampleDate" type="date"/>
+                    <Input 
+                        id= "dateField"
+                        name="date"
+                        onChange={e => this.handleChange(e)}
+                        type="date"/>
                 </FormGroup>
                 <FormGroup >
                     <Row sm={12} >
