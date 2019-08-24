@@ -33,11 +33,11 @@ class SessionForm extends Component {
     }
 
     handleChange = (event) => {
-        let oldformData = {...this.state.formData}
-        oldformData[event.target.name]=event.target.value
-        console.log(oldformData)
+        let newFormData = {...this.state.formData}
+        newFormData[event.target.name] = event.target.value
         this.setState({
             ...this.state,
+            formData:newFormData
           })
     }
 
@@ -62,9 +62,7 @@ class SessionForm extends Component {
         this.setState({ cSelected: [...this.state.cSelected] });
       }
 
-      componentDidMount() {
-          
-      }
+      onSubmit = () => {}
 
     render() { 
         return (
@@ -120,7 +118,9 @@ class SessionForm extends Component {
                 <FormGroup>
                     <Row>
                         <Col sm={12}>
-                            <Button className="col-sm-12 col-md-6 offset-md-3 ">
+                            <Button 
+                            onClick={this.onSubmit}
+                            className="col-sm-12 col-md-6 offset-md-3 ">
                                 Submit
                             </Button>
                         </Col>
