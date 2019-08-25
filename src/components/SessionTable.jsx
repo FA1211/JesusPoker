@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Container, Col, Row, Card, Button, Collapse, CardBody,Table} from 'reactstrap'
+import { Button, Card, Col, Collapse, Container, Table } from 'reactstrap';
 
 class SessionTable extends Component {
     state = { 
@@ -18,6 +18,29 @@ class SessionTable extends Component {
                         "id": 2,
                         "name": "Jacob",
                         "result": -35
+                    }
+                ],
+                "balance": 6
+            },
+
+            {
+                "id": 12,
+                "date": "2019-08-28",
+                "results": [
+                    {
+                        "id": 1,
+                        "name": "JT",
+                        "result":143
+                    },
+                    {
+                        "id": 2,
+                        "name": "Jacob",
+                        "result": -75
+                    },
+                    {
+                        "id":3,
+                        "name":"Fadle",
+                        "result":-68
                     }
                 ],
                 "balance": 6
@@ -61,64 +84,42 @@ class SessionTable extends Component {
           
         
           render() {
+              //this.getSessionInfo()
+              console.log(this.state.dummyData)
             return (
-              <Container className="mt-3">
-                  <Row sm ={12}>
-                  <Col sm={12}>
-                <Button style={{ borderColor: '#f7f0c7' }} 
-                        className=" mt-0 mb-0 col-12"
-                        //color="warning"
-                        onClick={() => this.toggle(1)}>2019-08-24</Button>
                     
-                <Collapse id={1} isOpen={this.checkOpen(1)}>
-                <Card body style={{ backgroundColor: '#5d84a9', borderColor: '#f7f0c7' }} outline>
-                  <Table borderless striped>
-                      
-                  <thead>
-                    <tr>
-                        <th>Player</th>
-                        <th>Score</th>
-                    </tr>
-                    </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">Mark</th>
-                        <td >1</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Jacob</th>
-                        <td >2</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Larry</th>
-                        <td>1</td>
-                    </tr>   
-                </tbody>
-                  </Table>
+                <Container className="mt-3">
+                {this.state.dummyData.map((session,index) => {
+
+                  return <Col sm={12}>
+                <Button style={{ borderColor: '#f7f0c7' }} className=" mt-0 mb-0 col-12" color="primary" onClick={() => this.toggle(index)}>{session['date']}</Button>
+                    
+                <Collapse id={2} isOpen={this.checkOpen(index)}>
+                  <Card body style={{ backgroundColor: '#5d84a9', borderColor: '#f7f0c7' }}>
+                    <Table borderless striped>
+                        <thead>
+                            <tr>
+                                <th>Player</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {session['results'].map(
+                                res => {
+                                    return <tr>
+                                        <th scope="row">{res['name']}</th>
+                                        <td>{res['result']}</td>
+                                    </tr>
+                                })}
+                        </tbody>
+                    </Table>
                   </Card>
                 </Collapse>
                 </Col>
-                    </Row>
-                
+            })}
+                </Container>
 
-                    <Row sm ={12}>
-                  <Col sm={12}>
-                <Button className=" mt-0 mb-0 col-12" color="primary" onClick={() => this.toggle(2)}>Toggle</Button>
-                    
-                <Collapse id={2} isOpen={this.checkOpen(2)}>
-                  <Card>
-                    <CardBody>
-                    Anim pariatur cliche reprehenderit,
-                     enim eiusmod high life accusamus terry richardson ad squid. Nihil
-                     anim keffiyeh helvetica, craft beer labore wes anderson cred
-                     nesciunt sapiente ea proident.
-                    </CardBody>
-                  </Card>
-                </Collapse>
-                </Col>
-                    </Row>
-
-              </Container>
             )}
 }
  
