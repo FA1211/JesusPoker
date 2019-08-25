@@ -20,7 +20,7 @@ class NavigationBar extends Component {
                         Add Session
                     </NavLink>
 
-                    <NavLink to ="/" style = {NavBarTextStyle} className ="col-6">
+                    <NavLink to ="/view-sessions" style = {NavBarTextStyle} className ="col-6">
                         View Sessions
                     </NavLink>
                     
