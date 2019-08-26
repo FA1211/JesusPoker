@@ -14,7 +14,7 @@ class SessionForm extends Component {
     randomColor = (selected) => {
         const index = this.state.cSelected.indexOf(selected);
         if (index < 0) {
-          return "#081B33BF"
+          return "#6f7173"
         } else {
           return "#353C51BF"
         }
@@ -32,14 +32,18 @@ class SessionForm extends Component {
         e.preventDefault()
     }
 
+
+
     handleChange = (event) => {
-        let newFormData = {...this.state.formData}
         console.log(this.state.formData)
+        this.setState({submittable:false})
+        let newFormData = {...this.state.formData}
         newFormData[event.target.name] = event.target.value
+        console.log(this.state)
         this.setState({
             ...this.state,
             formData:newFormData
-          })
+          }, this.makeSubmittable)
     }
 
     handleValue = (index) => {
@@ -58,11 +62,69 @@ class SessionForm extends Component {
         } else {
           this.state.cSelected.splice(index, 1);
         }
-        console.log(this.state.cSelected)
         this.setState({ cSelected: [...this.state.cSelected] });
       }
 
-      onSubmit = () => {}
+      onSubmit = () => {
+        this.setState({}, this.submitForm)
+
+      }
+
+      submitForm = () => {
+
+        
+        fetch("http://127.0.0.1:8000/sessions/",
+            {method: "post",
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'},
+
+            body: JSON.stringify(this.state.formData)
+            }).then(response => console.log(response)
+                )
+
+        // fetch("http://127.0.0.1:8000/players/", {
+        //     method: "post",
+        //     headers: {
+        //       'Accept': 'application/json',
+        //       'Content-Type': 'application/json'
+        //     },
+          
+        //     //make sure to serialize your JSON body
+        //     body: JSON.stringify({"name":"Billy"})
+        //   })
+        //   .then( (response) => {console.log(response)});
+      }
+
+      createForm = () => {
+          return this.state.names.map(
+            (playerName, index) => {
+            return <Row sm ={12}>
+
+                <Col md={6} >
+                    <Button
+                        id = {index}
+                        onClick={() => this.onCheckboxBtnClick(index)}
+                        className=" mt-0 mb-0 col-12"
+                        style ={{backgroundColor:this.randomColor(index), borderColor: '#353C51BF' }}>
+                    {playerName}
+                    </Button>
+                </Col>
+
+                <Col md = {6}>
+                    <Input
+                    id= {index}
+                    name={playerName}
+                    disabled={!this.state.cSelected.includes(index)} 
+                    type="number"
+                    placeholder={this.ptext(index)} 
+                    onChange={e => this.handleChange(e)}>
+                    </Input>
+                </Col>
+                
+            </Row>
+        })
+      }
 
     render() { 
         return (
@@ -70,7 +132,7 @@ class SessionForm extends Component {
             <Form >
 
                 <FormGroup >
-                    <Label for="exampleDate" style={{color:"white"}}>
+                    <Label for="date" style={{color:"white"}}>
                         Date
                     </Label>
                     <Input 
@@ -90,33 +152,7 @@ class SessionForm extends Component {
                 </FormGroup>
 
                 <FormGroup>
-                    {this.state.names.map(
-                        (playerName, index) => {
-                        return <Row sm ={12}>
-
-                            <Col md={6} >
-                                <Button
-                                    id = {4141231241+index}
-                                    onClick={() => this.onCheckboxBtnClick(index)}
-                                    className=" mt-0 mb-0 col-12"
-                                    style ={{backgroundColor:this.randomColor(index)}}>
-                                {playerName}
-                                </Button>
-                            </Col>
-
-                            <Col md = {6}>
-                                <Input
-                                id= {index}
-                                name={playerName}
-                                disabled={!this.state.cSelected.includes(index)} 
-                                type="number"
-                                placeholder={this.ptext(index)} 
-                                onChange={e => this.handleChange(e)}>
-                                </Input>
-                            </Col>
-                            
-                        </Row>
-                    })}
+                    {this.createForm()}
                 </FormGroup>  
 
                 <FormGroup>
@@ -124,6 +160,7 @@ class SessionForm extends Component {
                         <Col sm={12}>
                             <Button 
                             onClick={this.onSubmit}
+                            style={{backgroundColor:"#589486"}}
                             className="col-sm-12 col-md-6 offset-md-3 ">
                                 Submit
                             </Button>

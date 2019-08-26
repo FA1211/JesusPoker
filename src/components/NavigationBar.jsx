@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, NavbarBrand } from 'reactstrap';
+import { Navbar, NavbarBrand, NavItem } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import {NavBarStyle, NavBarTextStyle} from './styles.jsx';
 
@@ -12,6 +12,9 @@ class NavigationBar extends Component {
                 <NavbarBrand href="/" className="ml-2 mb-0 h1">
                         Jesus Poker
                 </NavbarBrand>
+                    
+                    <NavLink href="/components/">Login</NavLink>
+        
                 </Navbar>
 
                 <Navbar className="navbar-secondary border-bottom border-right border-dark m1-auto">

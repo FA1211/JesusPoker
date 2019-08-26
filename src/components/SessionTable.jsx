@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Card, Col, Collapse, Container, Table } from 'reactstrap';
+import * as moment from 'moment'
 
 class SessionTable extends Component {
     state = { 
@@ -92,7 +93,9 @@ class SessionTable extends Component {
                 {this.state.dummyData.map((session,index) => {
 
                   return <Col sm={12}>
-                <Button style={{ borderColor: '#f7f0c7' }} className=" mt-0 mb-0 col-12" color="primary" onClick={() => this.toggle(index)}>{session['date']}</Button>
+                <Button style={{ borderColor: '#f7f0c7' }} className=" mt-0 mb-0 col-12" color="primary" onClick={() => this.toggle(index)}>
+                    {moment(session['date'], 'YYYY-MM-DD').format("Do MMMM YY")}
+                </Button>
                     
                 <Collapse id={2} isOpen={this.checkOpen(index)}>
                   <Card body style={{ backgroundColor: '#5d84a9', borderColor: '#f7f0c7' }}>
