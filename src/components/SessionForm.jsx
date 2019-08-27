@@ -101,7 +101,7 @@ class SessionForm extends Component {
             (playerName, index) => {
             return <Row sm ={12}>
 
-                <Col md={6} >
+                <Col xs={6} >
                     <Button
                         id = {index}
                         onClick={() => this.onCheckboxBtnClick(index)}
@@ -111,7 +111,7 @@ class SessionForm extends Component {
                     </Button>
                 </Col>
 
-                <Col md = {6}>
+                <Col xs = {6}>
                     <Input
                     id= {index}
                     name={playerName}
