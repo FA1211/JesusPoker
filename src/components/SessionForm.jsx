@@ -66,6 +66,17 @@ class SessionForm extends Component {
       }
 
       onSubmit = () => {
+          let form = this.state.formData
+        if (!(form.hasOwnProperty('date'))) {
+            alert("Please Enter a Date")
+            return
+        }
+
+        for(var key in form){
+            if (form[key] === ""){
+                delete form[key]
+            }
+        }
         this.setState({}, this.submitForm)
 
       }
@@ -80,20 +91,8 @@ class SessionForm extends Component {
             'Content-Type': 'application/json'},
 
             body: JSON.stringify(this.state.formData)
-            }).then(response => console.log(response)
-                )
-
-        // fetch("http://127.0.0.1:8000/players/", {
-        //     method: "post",
-        //     headers: {
-        //       'Accept': 'application/json',
-        //       'Content-Type': 'application/json'
-        //     },
-          
-        //     //make sure to serialize your JSON body
-        //     body: JSON.stringify({"name":"Billy"})
-        //   })
-        //   .then( (response) => {console.log(response)});
+            }).then(response => 
+                console.log(response))//.then(data => window.location.reload(false));
       }
 
       createForm = () => {
