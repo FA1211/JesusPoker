@@ -42,7 +42,7 @@ class BestPlayerLine extends Component {
         let bestPlayerName = data['name']
         let sessions = data['sessions']
         let scores = sessions.map(sess => sess['result']).slice(0,10)
-        let ticks = [...Array(scores.length).keys()]
+        let ticks = [...  Array(scores.length).keys()]
         this.setState({ 
           bestPlayer: bestPlayerName,
           shouldHide: !this.state.shouldHide, 

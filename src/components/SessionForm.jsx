@@ -8,6 +8,7 @@ class SessionForm extends Component {
         names:["Joao","Fadle","Kyle","Jacob","Josh", "George", "Harry","Philip","JT"],
         colors:["#081B33BF","#152642BF","#2F4562BF","#767D92BF","#353C51BF"],
         cSelected: [],
+        values:{},
         formData:{}
      }
 
@@ -35,15 +36,12 @@ class SessionForm extends Component {
 
 
     handleChange = (event) => {
-        console.log(this.state.formData)
-        this.setState({submittable:false})
         let newFormData = {...this.state.formData}
         newFormData[event.target.name] = event.target.value
-        console.log(this.state)
         this.setState({
             ...this.state,
             formData:newFormData
-          }, this.makeSubmittable)
+          } )
     }
 
     handleValue = (index) => {
@@ -55,14 +53,16 @@ class SessionForm extends Component {
         return newValue
     }
 
-    onCheckboxBtnClick(selected) {
+    onCheckboxBtnClick = (selected, name) => {
         const index = this.state.cSelected.indexOf(selected);
+        let newFormData = this.state.formData
+
         if (index < 0) {
           this.state.cSelected.push(selected);
         } else {
-          this.state.cSelected.splice(index, 1);
+                this.state.cSelected.splice(index, 1);
         }
-        this.setState({ cSelected: [...this.state.cSelected] });
+        this.setState({ cSelected: [...this.state.cSelected], formData: newFormData });
       }
 
       onSubmit = () => {
@@ -76,6 +76,11 @@ class SessionForm extends Component {
             if (form[key] === ""){
                 delete form[key]
             }
+        }
+
+        if(form.length === 1){
+            alert("Please enter some scores")
+            return
         }
         this.setState({}, this.submitForm)
 
@@ -110,7 +115,8 @@ class SessionForm extends Component {
                 <Col xs={6} >
                     <Button
                         id = {index}
-                        onClick={() => this.onCheckboxBtnClick(index)}
+                        name = {playerName}
+                        onClick={() => this.onCheckboxBtnClick(index,playerName)}
                         className=" mt-0 mb-0 col-12"
                         style ={{backgroundColor:this.randomColor(index), borderColor: '#353C51BF' }}>
                     {playerName}
