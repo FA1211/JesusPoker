@@ -5,63 +5,16 @@ import * as moment from 'moment'
 class SessionTable extends Component {
     state = { 
         sessionResults : {},
-        dummyData :[
-            {
-                "id": 1,
-                "date": "2019-08-24",
-                "results": [
-                    {
-                        "id": 1,
-                        "name": "Joao",
-                        "result":35
-                    },
-                    {
-                        "id": 2,
-                        "name": "Jacob",
-                        "result": -35
-                    }
-                ],
-                "balance": 6
-            },
-
-            {
-                "id": 12,
-                "date": "2019-08-28",
-                "results": [
-                    {
-                        "id": 1,
-                        "name": "JT",
-                        "result":143
-                    },
-                    {
-                        "id": 2,
-                        "name": "Jacob",
-                        "result": -75
-                    },
-                    {
-                        "id":3,
-                        "name":"Fadle",
-                        "result":-68
-                    }
-                ],
-                "balance": 6
-            }
-        ],
+        dummyData : [],
         dates: {},
         players: {},
         collapse:[]
      }
 
      getSessionInfo = () => {
-         return fetch("http://127.0.0.1:8000/sessions").then(response => response.json())
-         .then(session => {
-            //let date = session['date']
-            let results = session['results']
-            console.log(session)
-            let players = results.map(obj => obj['name'])
-            console.log(players)
-            
-        
+         return fetch("http://127.0.0.1:8000/sessions?ordering=-date").then(response => response.json())
+         .then(data => {
+             this.setState({dummyData: data})
         })}
     
         toggle = (id) => {
@@ -82,6 +35,9 @@ class SessionTable extends Component {
                 return this.state.collapse.indexOf(id) > -1
           }
 
+          componentDidMount = () => {
+              this.getSessionInfo()
+          }
           
         
           render() {
@@ -111,7 +67,7 @@ class SessionTable extends Component {
                             {session['results'].map(
                                 res => {
                                     return <tr>
-                                        <th scope="row">{res['name']}</th>
+                                        <th scope="row">{res['player']}</th>
                                         <td>{res['result']}</td>
                                     </tr>
                                 })}

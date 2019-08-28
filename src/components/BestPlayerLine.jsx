@@ -36,32 +36,52 @@ class BestPlayerLine extends Component {
      
 
      getChartData = () => {
-        return fetch(spreadsheetURL).then(response => response.json()).then(
-            data => {
-            let allRows = data.valueRanges[0].values;
-            let otherRows = allRows.slice(1)
-            let players = otherRows.map(row => [row[0]].concat([row.slice(1)]));
-            let totalScores = players.map(pl => pl[1].reduce((a,b) => Number(a)+Number(b)))
-
-            let bestPlayerIndex = totalScores.indexOf(Math.max(...totalScores))
-            let bestPlayer = players[bestPlayerIndex]
-            let bestPlayerName = bestPlayer[0]
-            let bestPlayerScores = bestPlayer[1].map(sc => Number(sc))
-            this.setState({ 
-                bestPlayer: bestPlayerName,
-                shouldHide: !this.state.shouldHide, 
-                data :
-                {
-                    labels : [1,2,3,4,5,6,7,8,9,10],
-                    datasets: [{
-                    label: bestPlayerName,
-                    data: bestPlayerScores,
-                }]}
-            })
-
+      return fetch("http://127.0.0.1:8000/playerscores/get_max")
+      .then(response => response.json())
+      .then(data => {
+        let bestPlayerName = data['name']
+        let sessions = data['sessions']
+        let scores = sessions.map(sess => sess['result']).slice(0,10)
+        let ticks = [...Array(scores.length).keys()]
+        this.setState({ 
+          bestPlayer: bestPlayerName,
+          shouldHide: !this.state.shouldHide, 
+          data :
+          {
+              labels : ticks,
+              datasets: [{
+              label: bestPlayerName,
+              data: scores,
+            }]
+          }
         })
-       }
+      })
+    }
 
+    //    return fetch(spreadsheetURL).then(response => response.json()).then(
+    //     data => {
+    //     let allRows = data.valueRanges[0].values;
+    //     let otherRows = allRows.slice(1)
+    //     let players = otherRows.map(row => [row[0]].concat([row.slice(1)]));
+    //     let totalScores = players.map(pl => pl[1].reduce((a,b) => Number(a)+Number(b)))
+
+    //     let bestPlayerIndex = totalScores.indexOf(Math.max(...totalScores))
+    //     let bestPlayer = players[bestPlayerIndex]
+    //     let bestPlayerName = bestPlayer[0]
+    //     let bestPlayerScores = bestPlayer[1].map(sc => Number(sc))
+        // this.setState({ 
+        //     bestPlayer: bestPlayerName,
+        //     shouldHide: !this.state.shouldHide, 
+        //     data :
+        //     {
+        //         labels : [1,2,3,4,5,6,7,8,9,10],
+        //         datasets: [{
+        //         label: bestPlayerName,
+        //         data: bestPlayerScores,
+        //     }]}
+    //     })
+
+    // })
        componentDidMount() {
            this.getChartData()
        }

@@ -84,15 +84,22 @@ class SessionForm extends Component {
       submitForm = () => {
 
         
-        fetch("http://127.0.0.1:8000/sessions/",
+        fetch("http://127.0.0.1:8000/forms/",
             {method: "post",
             headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'},
 
             body: JSON.stringify(this.state.formData)
-            }).then(response => 
-                console.log(response))//.then(data => window.location.reload(false));
+            }).then(response => {
+                    if (response.status === 201){
+                        alert("Session Submitted")
+                        window.location.reload();
+                    }
+                    else if (response.status === 500){
+                        alert("Failed! If this keeps happening then contact Fadle :/")
+                    }
+            })
       }
 
       createForm = () => {

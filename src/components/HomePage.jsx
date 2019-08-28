@@ -1,7 +1,7 @@
 import { Col, Container, Row } from 'reactstrap';
 import React, { Component } from 'react';
 import BestPlayerLine from './BestPlayerLine'
-import ChartWindow from './ChartWindow';
+import BarChart from './BarChart';
 import {bgColor} from './styles.jsx'
 
 
@@ -19,7 +19,7 @@ class HomePage extends Component {
               </Col>
 
               <Col xs ="12" md="6">
-                <ChartWindow  title={"Overall Scores"}/>
+                <BarChart  title={"Overall Scores"}/>
               </Col>
 
           </Row>
