@@ -36,7 +36,7 @@ class BestPlayerLine extends Component {
      
 
      getChartData = () => {
-      return fetch("http://127.0.0.1:8000/playerscores/get_max")
+      return fetch("http://arounf.pythonanywhere.com/playerscores/get_max")
       .then(response => response.json())
       .then(data => {
         let bestPlayerName = data['name']

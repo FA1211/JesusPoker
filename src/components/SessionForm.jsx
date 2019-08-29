@@ -89,7 +89,7 @@ class SessionForm extends Component {
       submitForm = () => {
 
         
-        fetch("http://127.0.0.1:8000/forms/",
+        fetch("http://arounf.pythonanywhere.com/forms/",
             {method: "post",
             headers: {
             'Accept': 'application/json',
@@ -97,6 +97,7 @@ class SessionForm extends Component {
 
             body: JSON.stringify(this.state.formData)
             }).then(response => {
+                    console.log(this.state.formData)
                     if (response.status === 201){
                         alert("Session Submitted")
                         window.location.reload();

@@ -18,8 +18,8 @@ class BarChart extends Component {
         return arr[Math.floor(Math.random() * arr.length)]
       }
 
-     getChartData = () => {
-       return fetch("http://127.0.0.1:8000/playerscores/")
+     getChartData = () => {http://127.0.0.1:8000
+       return fetch("http://arounf.pythonanywhere.com/playerscores/")
        .then(response => response.json())
        .then(data => {
          

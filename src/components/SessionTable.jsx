@@ -12,7 +12,7 @@ class SessionTable extends Component {
      }
 
      getSessionInfo = () => {
-         return fetch("http://127.0.0.1:8000/sessions?ordering=-date").then(response => response.json())
+         return fetch("http://arounf.pythonanywhere.com/sessions?ordering=-date").then(response => response.json())
          .then(data => {
              this.setState({dummyData: data})
         })}
