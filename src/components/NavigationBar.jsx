@@ -2,9 +2,31 @@ import React, { Component } from "react";
 import { Navbar, NavbarBrand, NavItem } from "reactstrap";
 import { NavLink } from "react-router-dom";
 import { NavBarStyle, NavBarTextStyle } from "./styles.jsx";
+import FacebookLogin from 'react-facebook-login'
+
 
 class NavigationBar extends Component {
-  state = {};
+
+    onFacebookLogin = (response) => {
+        return this.setState({fb_access_token: response['accessToken']}, this.getBackendToken)
+    }
+    
+    getBackendToken = () => {
+        let login_body = {provider: "facebook", access_token: this.state.fb_access_token}
+        console.log(login_body)
+        return fetch(process.env.REACT_APP_BACKEND_URL + "/oauth/login/", 
+        {
+            method: "post",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json"
+            },
+            body:JSON.stringify(login_body)
+        })
+        .then(response => console.log(response))
+    }
+
+  state = {fb_access_token:""};
   render() {
     return (
       <div>
@@ -13,7 +35,14 @@ class NavigationBar extends Component {
             Jesus Poker
           </NavbarBrand>
 
-          <NavLink href="/components/">Login</NavLink>
+          <FacebookLogin
+            appId = "347699686134343"
+            fields = "first_name, email, picture"
+            autoLoad = {false}
+            callback = {this.onFacebookLogin}
+            size = "small"
+          />
+
         </Navbar>
 
         <Navbar className="navbar-secondary border-bottom border-right border-dark m1-auto">
@@ -32,6 +61,7 @@ class NavigationBar extends Component {
           >
             View Sessions
           </NavLink>
+    
         </Navbar>
       </div>
     );

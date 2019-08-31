@@ -4,20 +4,12 @@ import * as moment from "moment";
 
 class SessionTable extends Component {
   state = {
-    sessionResults: {},
-    dummyData: [],
+    sessionData: [],
     dates: {},
     players: {},
     collapse: []
   };
 
-  getSessionInfo = () => {
-    return fetch(process.env.REACT_APP_BACKEND_URL + "/sessions?ordering=-date")
-      .then(response => response.json())
-      .then(data => {
-        this.setState({ dummyData: data });
-      });
-  };
 
   toggle = id => {
     let isToggled = this.state.collapse.indexOf(id);
@@ -28,24 +20,26 @@ class SessionTable extends Component {
     } else {
       newCollapsed.splice(isToggled, 1);
     }
-    console.log(newCollapsed);
     this.setState({ collapse: newCollapsed });
   };
+
 
   checkOpen = id => {
     return this.state.collapse.indexOf(id) > -1;
   };
 
   componentDidMount = () => {
-    this.getSessionInfo();
-  };
+    fetch(process.env.REACT_APP_BACKEND_URL + "/sessions?ordering=-date")
+      .then(response => response.json())
+      .then(data => {
+        this.setState({ sessionData: data })
+        })
+    }
 
   render() {
-    //this.getSessionInfo()
-    console.log(this.state.dummyData);
     return (
       <Container className="mt-3">
-        {this.state.dummyData.map((session, index) => {
+        {this.state.sessionData.map((session, index) => {
           return (
             <Col sm={12}>
               <Button
@@ -71,11 +65,11 @@ class SessionTable extends Component {
                     </thead>
 
                     <tbody>
-                      {session["results"].map(res => {
+                      {session["results"].map(rslt => {
                         return (
                           <tr>
-                            <th scope="row">{res["player"]}</th>
-                            <td>{res["result"]}</td>
+                            <th scope="row">{rslt["player"]}</th>
+                            <td>{rslt["result"]}</td>
                           </tr>
                         );
                       })}

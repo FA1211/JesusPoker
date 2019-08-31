@@ -25,7 +25,8 @@ class SessionForm extends Component {
       "George",
       "Harry",
       "Philip",
-      "JT"
+      "JT",
+      "Nick"
     ],
     colors: ["#081B33BF", "#152642BF", "#2F4562BF", "#767D92BF", "#353C51BF"],
     cSelected: [],
@@ -100,7 +101,7 @@ class SessionForm extends Component {
       }
     }
 
-    if (form.length === 1) {
+    if (Object.keys(form).length === 1) {
       alert("Please enter some scores");
       return;
     }
@@ -118,7 +119,7 @@ class SessionForm extends Component {
 
       body: JSON.stringify(this.state.formData)
     }).then(response => {
-      console.log(this.state.formData);
+      
       if (response.status === 201) {
         alert("Session Submitted");
         window.location.reload();
@@ -197,8 +198,7 @@ class SessionForm extends Component {
                 <Button
                   onClick={this.onSubmit}
                   style={{ backgroundColor: "#589486" }}
-                  className="col-sm-12 col-md-6 offset-md-3 "
-                >
+                  className="col-sm-12 col-md-6 offset-md-3 ">
                   Submit
                 </Button>
               </Col>
