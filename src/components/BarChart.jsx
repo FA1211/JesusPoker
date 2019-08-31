@@ -18,8 +18,8 @@ class BarChart extends Component {
         return arr[Math.floor(Math.random() * arr.length)]
       }
 
-     getChartData = () => {http://127.0.0.1:8000
-       return fetch("http://arounf.pythonanywhere.com/playerscores/")
+     getChartData = () => {
+       return fetch(process.env.REACT_APP_BACKEND_URL+"/playerscores/")
        .then(response => response.json())
        .then(data => {
          
@@ -48,29 +48,6 @@ class BarChart extends Component {
 
        })
      }
-      // return fetch(spreadsheetURL).then(response => response.json()).then(
-      //   data => {
-      //   let allRows = data.valueRanges[0].values;
-      //   let headerRow = allRows[0]
-      //   let otherRows = allRows.slice(1)
-      //   let players = allRows.map(row => row[0]).slice(1)
-      //   let scores = otherRows.map(row => [row[0]].concat([row.slice(1)]));
-      //   let totalScores = scores.map(pl => pl[1].reduce((a,b) => parseFloat(a)+parseFloat(b)))
-      //   let colorScheme = ["#081B33BF","#152642BF","#2F4562BF","#767D92BF","#353C51BF"]
-      //   const colors = players.map(pl => colorScheme[Math.floor(Math.random() * colorScheme.length)])
-      //   console.log(totalScores)
-        
-      //   this.setState({header: headerRow, data: {
-      //                                         labels:players,
-      //                                         datasets:[{
-      //                                           label: 'My First dataset',
-      //                                           data: totalScores,
-      //                                           backgroundColor: colors,
-      //                                         }],
-      //                                       }
-      //                                       })
-      //                                       } 
-      // )};
 
        componentDidMount() {
         this.getChartData()

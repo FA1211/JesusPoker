@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {Line} from 'react-chartjs-2';
 import {Card, CardBody, CardTitle} from 'reactstrap';
-import {spreadsheetURL} from './config';
 
 const options ={
     legend: {
@@ -36,7 +35,7 @@ class BestPlayerLine extends Component {
      
 
      getChartData = () => {
-      return fetch("http://arounf.pythonanywhere.com/playerscores/get_max")
+      return fetch(process.env.REACT_APP_BACKEND_URL+"/playerscores/get_max")
       .then(response => response.json())
       .then(data => {
         let bestPlayerName = data['name']
@@ -57,31 +56,6 @@ class BestPlayerLine extends Component {
         })
       })
     }
-
-    //    return fetch(spreadsheetURL).then(response => response.json()).then(
-    //     data => {
-    //     let allRows = data.valueRanges[0].values;
-    //     let otherRows = allRows.slice(1)
-    //     let players = otherRows.map(row => [row[0]].concat([row.slice(1)]));
-    //     let totalScores = players.map(pl => pl[1].reduce((a,b) => Number(a)+Number(b)))
-
-    //     let bestPlayerIndex = totalScores.indexOf(Math.max(...totalScores))
-    //     let bestPlayer = players[bestPlayerIndex]
-    //     let bestPlayerName = bestPlayer[0]
-    //     let bestPlayerScores = bestPlayer[1].map(sc => Number(sc))
-        // this.setState({ 
-        //     bestPlayer: bestPlayerName,
-        //     shouldHide: !this.state.shouldHide, 
-        //     data :
-        //     {
-        //         labels : [1,2,3,4,5,6,7,8,9,10],
-        //         datasets: [{
-        //         label: bestPlayerName,
-        //         data: bestPlayerScores,
-        //     }]}
-    //     })
-
-    // })
        componentDidMount() {
            this.getChartData()
        }

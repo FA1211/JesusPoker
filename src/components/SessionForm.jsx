@@ -88,8 +88,8 @@ class SessionForm extends Component {
 
       submitForm = () => {
 
-        
-        fetch("http://arounf.pythonanywhere.com/forms/",
+        console.log(process.env.REACT_APP_BACKEND_URL)
+        fetch(process.env.REACT_APP_BACKEND_URL+"/forms/",
             {method: "post",
             headers: {
             'Accept': 'application/json',
