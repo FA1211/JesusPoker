@@ -4,11 +4,10 @@ import { Card, CardBody, CardTitle } from "reactstrap";
 import { spreadsheetURL } from "./config";
 
 const colorScheme = [
-  "#081B33BF",
-  "#152642BF",
-  "#2F4562BF",
-  "#767D92BF",
-  "#353C51BF"
+  "#000272",
+  "#341677",
+  "#a32f80",
+  "#ff6363",
 ];
 
 class BarChart extends Component {
@@ -23,16 +22,13 @@ class BarChart extends Component {
   };
 
   getChartData = () => {
-    return fetch(process.env.REACT_APP_BACKEND_URL + "/playerscores/")
+    return fetch(process.env.REACT_APP_BACKEND_URL + "/api/playerscores/")
       .then(response => response.json())
       .then(data => {
         let players = data.map(obj => obj["name"]);
         let scores = data.map(obj => obj["total_score"]);
 
         let colors = scores.map(() => this.randomArrElement(colorScheme));
-        console.log(this.randomArrElement(colorScheme));
-        console.log(colors);
-
         this.setState({
           data: {
             labels: players,

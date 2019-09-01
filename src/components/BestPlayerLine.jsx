@@ -32,7 +32,7 @@ class BestPlayerLine extends Component {
   };
 
   getChartData = () => {
-    return fetch(process.env.REACT_APP_BACKEND_URL + "/playerscores/get_max")
+    return fetch(process.env.REACT_APP_BACKEND_URL + "/api/playerscores/get_max")
       .then(response => response.json())
       .then(data => {
         let bestPlayerName = data["name"];
@@ -62,7 +62,6 @@ class BestPlayerLine extends Component {
     const title = this.state.shouldHide
       ? " "
       : this.state.title + " is " + this.state.bestPlayer;
-    console.log("titleBool", this.state.shouldHide);
     return (
       <Card body inverse color="dark" className="mt-0">
         <CardBody>

@@ -29,7 +29,7 @@ class SessionTable extends Component {
   };
 
   componentDidMount = () => {
-    fetch(process.env.REACT_APP_BACKEND_URL + "/sessions?ordering=-date")
+    fetch(process.env.REACT_APP_BACKEND_URL + "/api/sessions?ordering=-date")
       .then(response => response.json())
       .then(data => {
         this.setState({ sessionData: data })
@@ -52,6 +52,11 @@ class SessionTable extends Component {
               </Button>
 
               <Collapse id={2} isOpen={this.checkOpen(index)}>
+                  <Card>
+                      <Button>
+                          Added by {session['creator']}
+                      </Button>
+                  </Card>
                 <Card
                   body
                   style={{ backgroundColor: "#5d84a9", borderColor: "#f7f0c7" }}
