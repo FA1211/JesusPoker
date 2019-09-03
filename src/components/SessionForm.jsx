@@ -89,45 +89,25 @@ class SessionForm extends Component {
     });
   };
 
-  onSubmit = () => {
-    let form = this.state.formData;
+  validateForm = (form) => {
     if (!form.hasOwnProperty("date")) {
       alert("Please Enter a Date");
       return;
     }
-
     for (var key in form) {
       if (form[key] === "") {
         delete form[key];
       }
     } 
-
     if (Object.keys(form).length === 1) {
       alert("Please enter some scores");
       return;
     }
-    this.submitForm()
-  };
+  }
 
-  submitForm = () => {
-    fetch(process.env.REACT_APP_BACKEND_URL + "/api/forms/", {
-      method: "post",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Authorization": "Token " + localStorage.getItem('django_token')
-      },
-
-      body: JSON.stringify(this.state.formData)
-    }).then(response => {
-      
-      if (response.status === 201) {
-        alert("Session Submitted");
-        window.location.reload();
-      } else if (response.status === 500) {
-        alert("Failed! If this keeps happening then contact Fadle :/");
-      }
-    });
+  onSubmit = () => {
+    validateForm(this.state.formData)
+    submitForm()
   };
 
   createForm = () => {
@@ -197,7 +177,7 @@ class SessionForm extends Component {
             <Row>
               <Col sm={12}>
                 <Button
-                  onClick={this.onSubmit}
+                  onClick={onSubmit}
                   style={{ backgroundColor: "#589486" }}
                   className="col-sm-12 col-md-6 offset-md-3 ">
                   Submit
