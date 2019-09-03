@@ -18,8 +18,8 @@
 // ##############################
 // // // Chart variables
 // #############################
-import React, { Component } from 'react';
-import {getAllPlayerScores} from '../../api/django'
+import { Component } from 'react';
+import { getAllPlayerScores } from '../../api/django';
 
 class Chart extends Component {
   state = {}
@@ -39,8 +39,8 @@ static chart1_2_options = {
     intersect: 0,
     position: "nearest"
   },
-  aspectRatio:1.5,
-  maintainAspectRatio:false,
+  aspectRatio:5,
+  maintainAspectRatio:true,
   responsive: true,
   scales: {
     yAxes: [
@@ -81,7 +81,7 @@ static updatePlayerScores = () => {
 // #########################################
 // // // used inside src/views/Dashboard.jsx
 // #########################################
-static chartExample1(players,scores){
+static chartExample1(labels_, values){
   return {data1: canvas => {
     let ctx = canvas.getContext("2d");
 
@@ -92,17 +92,7 @@ static chartExample1(players,scores){
     gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
 
     return {
-      labels: [
-        "JAN",
-        "FEB",
-        "MAR",
-        "APR",
-        "MAY",
-        "JUN",
-        "JUL",
-        "AUG",
-        "SEP",
-      ],
+      labels: labels_,
       datasets: [
         {
           label: "My First dataset",
@@ -119,7 +109,7 @@ static chartExample1(players,scores){
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
-          data: [100, 70, 90, 70, 85, 60, 75, 60, 90]
+          data: values 
         }
       ]
     };
@@ -288,7 +278,6 @@ static chartExample3(players,scores){
   options: {
     maintainAspectRatio: true,
     aspectRatio:1.5,
-    responsive: true,
     legend: {
       display: false
     },

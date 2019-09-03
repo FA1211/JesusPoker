@@ -8,7 +8,7 @@ import SessionTable from "./components/SessionTable";
 import { bgStyle } from "./components/styles";
 import {checkFacebookToken} from "./api/facebook.jsx"
 import {getDjangoToken} from "./api/django.jsx"
-import {Container, Col, Row} from "reactstrap"
+import {Container} from "reactstrap"
 
 class App extends Component {
   state = { is_authed: false, authed_user: "" };
