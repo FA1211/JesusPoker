@@ -42,7 +42,6 @@ export const getDjangoToken = fb_access_token => {
     };
     return fetch(process.env.REACT_APP_BACKEND_URL + "/api/auth/login/", {
       method: "post",
-      headers: access_headers,
       body: JSON.stringify(login_body)
     })
       .then(response => response.json())
