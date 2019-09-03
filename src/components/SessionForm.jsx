@@ -106,8 +106,8 @@ class SessionForm extends Component {
   }
 
   onSubmit = () => {
-    validateForm(this.state.formData)
-    submitForm()
+    this.validateForm(this.state.formData)
+    this.submitForm()
   };
 
   createForm = () => {
@@ -177,7 +177,7 @@ class SessionForm extends Component {
             <Row>
               <Col sm={12}>
                 <Button
-                  onClick={onSubmit}
+                  onClick={this.onSubmit}
                   style={{ backgroundColor: "#589486" }}
                   className="col-sm-12 col-md-6 offset-md-3 ">
                   Submit
