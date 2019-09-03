@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, Card, Col, Collapse, Container, Table } from "reactstrap";
 import * as moment from "moment";
+import { getAllSessions } from "../api/django";
 
 class SessionTable extends Component {
   state = {
@@ -29,9 +30,7 @@ class SessionTable extends Component {
   };
 
   componentDidMount = () => {
-    fetch(process.env.REACT_APP_BACKEND_URL + "/api/sessions?ordering=-date")
-      .then(response => response.json())
-      .then(data => {
+    getAllSessions().then(data => {
         this.setState({ sessionData: data })
         })
     }

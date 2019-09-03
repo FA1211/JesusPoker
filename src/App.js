@@ -6,6 +6,8 @@ import HomePage from "./components/HomePage";
 import NavigationBar from "./components/NavigationBar";
 import SessionTable from "./components/SessionTable";
 import { bgStyle } from "./components/styles";
+import {checkFacebookToken} from "./api/facebook.jsx"
+import {getDjangoToken} from "./api/django.jsx"
 
 class App extends Component {
   state = { is_authed: false, authed_user: "" };
@@ -15,60 +17,31 @@ class App extends Component {
     this.setState({ is_authed: new_auth });
   };
 
-  checkInitialAuth = () => {
-    let token = localStorage.getItem("django_token");
-
-    return fetch(process.env.REACT_APP_BACKEND_URL + "/api/auth/check-token/", {
-      method: "get",
-      headers: { Authorization: "Token " + token }
-    }).then(response => {
-      if (!response.ok) {
-        console.log("initial auth failed - user not logged in");
-        return;
-      } else
-        return response.json().then(data =>
-          this.setState({
-            is_authed: true,
-            authed_user: data["authenticated_user"]
-          })
-        );
-    });
-  };
-
-  getBackendToken = fb_access_token => {
-    let login_body = {
-      provider: "facebook",
-      access_token: fb_access_token
-    };
-    return fetch(process.env.REACT_APP_BACKEND_URL + "/api/auth/login/", {
-      method: "post",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(login_body)
+  saveDjangoToken = (fb_access_token) => {
+    getDjangoToken(fb_access_token).then(data => {
+      let django_token = data["access_token"];
+      localStorage.setItem("django_token", django_token);
+      this.setState({is_authed: true, authed_user:data["first_name"]})
     })
-      .then(response => response.json())
-      .then(data => {
-        this.setState({authed_user:data["first_name"]})
-        let django_token = data["access_token"];
-        localStorage.setItem("django_token", django_token);
-      });
-  };
+  } 
 
   componentDidMount = () => {
-    this.checkInitialAuth();
-  };
+    checkFacebookToken().then(response => {
+      if("authenticated_user" in response){
+        this.setState({is_authed:true, authed_user:response['authenticated_user']})
+      }
+    })
+  } 
+    
 
   render() {
-    console.log(this.state.authed_user);
     return (
       <BrowserRouter>
         <div style={bgStyle}>
           <NavigationBar
             is_authed={this.state.is_authed}
             update_auth={this.updateAuth}
-            getBackendToken={this.getBackendToken}
+            getBackendToken={this.saveDjangoToken}
             name={this.state.authed_user}
           />
           <Switch>

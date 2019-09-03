@@ -3,33 +3,27 @@ import { Navbar, NavbarBrand } from "reactstrap";
 import { NavLink } from "react-router-dom";
 import { NavBarStyle, NavBarTextStyle } from "./styles.jsx";
 import FacebookLogin from "react-facebook-login";
-
+import "../styles.css";
 class NavigationBar extends Component {
-    
-    constructor(props){
-        super(props)
-        //console.log(props)
-        this.state = {
-            fb_access_token: "",
-            is_authed: false,
-            fb_user: this.props.name
-          };
-        
-    } 
+  constructor(props) {
+    super(props);
+    this.state = {
+      fb_access_token: "",
+      is_authed: false,
+      fb_user: this.props.name
+    };
+  }
 
   onFacebookLogin = response => {
-    this.props.update_auth()
-    return this.setState(
-      {
-        fb_access_token: response["accessToken"],
-        fb_user: response["first_name"]
-      },
-      () => this.props.getBackendToken(this.state.fb_access_token)
-    );
+    if (response.status === "unknown") {
+      return;
+    } else {
+      this.props.update_auth();
+      return this.props.getBackendToken(response["accessToken"]);
+    }
   };
 
   render() {
-    console.log(this.state)
     return (
       <div>
         <Navbar style={NavBarStyle} className="border-bottom border-dark" light>
@@ -37,16 +31,20 @@ class NavigationBar extends Component {
             Jesus Poker
           </NavbarBrand>
 
-          {!this.props.is_authed ?
+          {!this.props.is_authed ? (
             <FacebookLogin
+              className="btnFacebook"
               appId={process.env.REACT_APP_STR_FACEBOOK_APP_ID}
               fields="first_name, email, picture"
               autoLoad={false}
+              reAuthenticate={false}
               callback={this.onFacebookLogin}
               size="small"
             />
-           : (
-            <h6>{this.props.name===""? "" : "Logged in as " + this.props.name}</h6>
+          ) : (
+            <h6>
+              {this.props.name === "" ? "" : "Logged in as " + this.props.name}
+            </h6>
           )}
         </Navbar>
 

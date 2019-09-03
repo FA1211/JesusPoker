@@ -26,7 +26,8 @@ class SessionForm extends Component {
       "Harry",
       "Philip",
       "JT",
-      "Nick"
+      "Nick",
+      "Conall"
     ],
     colors: ["#081B33BF", "#152642BF", "#2F4562BF", "#767D92BF", "#353C51BF"],
     cSelected: [],
@@ -99,22 +100,22 @@ class SessionForm extends Component {
       if (form[key] === "") {
         delete form[key];
       }
-    }
+    } 
 
     if (Object.keys(form).length === 1) {
       alert("Please enter some scores");
       return;
     }
-    this.setState({}, this.submitForm);
+    this.submitForm()
   };
 
   submitForm = () => {
-    console.log(process.env.REACT_APP_BACKEND_URL);
-    fetch(process.env.REACT_APP_BACKEND_URL + "/forms/", {
+    fetch(process.env.REACT_APP_BACKEND_URL + "/api/forms/", {
       method: "post",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": "Token " + localStorage.getItem('django_token')
       },
 
       body: JSON.stringify(this.state.formData)

@@ -1,7 +1,7 @@
 import { Col, Container, Row } from "reactstrap";
 import React, { Component } from "react";
-import BestPlayerLine from "./BestPlayerLine";
-import BarChart from "./BarChart";
+import BestPlayerLine from "./charts/BestPlayerLine";
+import BarChart from "./charts/BarChart";
 import { bgColor } from "./styles.jsx";
 
 class HomePage extends Component {
