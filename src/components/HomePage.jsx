@@ -1,4 +1,4 @@
-import { Col, Container, Row } from "reactstrap";
+import { Col, Container, Row, Card, CardTitle } from "reactstrap";
 import React, { Component } from "react";
 import BestPlayerLine from "./charts/BestPlayerLine";
 import BarChart from "./charts/BarChart";
@@ -8,19 +8,24 @@ class HomePage extends Component {
   state = {};
   render() {
     return (
-      <div style={bgColor}>
-        <Container fluid>
-          <Row className="mt-2 mb-2">
-            <Col xs="12" md="6">
+      <Container fluid  style={bgColor} >
+          <Row xs={12} className="mt-2 mb-2">
+            <Col xs={12} md="12">
               <BestPlayerLine title="Current Leader"></BestPlayerLine>
             </Col>
-
-            <Col xs="12" md="6">
-              <BarChart title={"Overall Scores"} />
+          </Row>
+          <Row xs={12} className="mt-2 mb-2">
+            <Col xs={4}>
+              <BarChart/>
+            </Col>
+            <Col xs={4}>
+              <BarChart/>
+            </Col>
+            <Col xs={4}>
+              <BarChart/>
             </Col>
           </Row>
-        </Container>
-      </div>
+      </Container>
     );
   }
 }

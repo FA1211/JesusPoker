@@ -48,7 +48,7 @@ class BarChart extends Component {
 
   render() {
     return (
-      <Card body inverse color="dark" className="mt-0">
+      <Card body inverse color="dark" >
         <CardBody>
           <CardTitle>{this.state.title}</CardTitle>
           <Bar

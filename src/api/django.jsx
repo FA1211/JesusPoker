@@ -8,7 +8,7 @@ export const getBestPlayerScores = () => {
     .then(response => response.json())
     }
 
-export const submitForm = () => {
+export const submitForm = (form) => {
   fetch(process.env.REACT_APP_BACKEND_URL + "/api/forms/", {
     method: "post",
     headers: {
@@ -17,7 +17,7 @@ export const submitForm = () => {
       Authorization: "Token " + localStorage.getItem("django_token")
     },
 
-    body: JSON.stringify(this.state.formData)
+    body: JSON.stringify(form)
   }).then(response => {
     if (response.status === 201) {
       alert("Session Submitted");

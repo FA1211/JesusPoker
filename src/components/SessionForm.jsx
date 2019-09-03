@@ -11,6 +11,7 @@ import {
   Label,
   Row
 } from "reactstrap";
+import {submitForm} from '../api/django.jsx'
 
 const tStyle = { color: "white", textAlign: "center", fontFamily: "Arial" };
 
@@ -107,7 +108,7 @@ class SessionForm extends Component {
 
   onSubmit = () => {
     this.validateForm(this.state.formData)
-    this.submitForm()
+    submitForm(this.state.formData)
   };
 
   createForm = () => {

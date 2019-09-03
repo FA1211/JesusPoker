@@ -20,8 +20,9 @@ const options = {
         }
       }
     ],
-    xAxes: [{}]
-  }
+    xAxes: [{display:false}],
+  },
+  aspectRatio:5
 };
 
 class BestPlayerLine extends Component {
@@ -68,7 +69,7 @@ class BestPlayerLine extends Component {
       <Card body inverse color="dark" className="mt-0">
         <CardBody>
           <CardTitle>{title}</CardTitle>
-          <Line options={options} data={this.state.data}></Line>
+          <Line height={null} width={null} options={options} data={this.state.data}></Line>
         </CardBody>
       </Card>
     );
