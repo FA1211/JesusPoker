@@ -1,19 +1,21 @@
 import React, { Component } from "react";
-import { Bar } from "react-chartjs-2";
+import { HorizontalBar } from "react-chartjs-2";
 import { Card, CardBody, CardTitle } from "reactstrap";
 import { getAllPlayerScores } from "../../api/django";
+import Chart from "./charts"
 
 const colorScheme = [
-  "#000272",
-  "#341677",
-  "#a32f80",
-  "#ff6363",
+  "#182952",
+  "#2b3595",
+  "#7045af",
+  "#e14594",
 ];
 
 class BarChart extends Component {
   state = {
     title: this.props.title,
-    data: {},
+    labels:[],
+    values:[],
     header: "gssafkldasjfk"
   };
 
@@ -28,16 +30,8 @@ class BarChart extends Component {
 
         let colors = scores.map(() => this.randomArrElement(colorScheme));
         this.setState({
-          data: {
             labels: players,
-            datasets: [
-              {
-                label: "My First dataset",
-                data: scores,
-                backgroundColor: colors
-              }
-            ]
-          }
+            values: scores,
         });
       });
   };
@@ -47,16 +41,18 @@ class BarChart extends Component {
   }
 
   render() {
+    //console.log(Chart.updatePlayerScores())
     return (
-      <Card body inverse color="dark" >
-        <CardBody>
-          <CardTitle>{this.state.title}</CardTitle>
-          <Bar
+      <Card body inverse style={{ backgroundColor: '#27293D', borderColor: '#333' }} >
+        <CardBody className="pt-1 pl-0 pr-0 pb-0">
+          <CardTitle>All Scores</CardTitle>
+          <HorizontalBar  width={null} height={null}
             options={{
               legend: { display: false },
               title: { text: "hello" }
             }}
-            data={this.state.data}
+            data={Chart.chartExample3(this.state.labels, this.state.values).data}
+            options={Chart.chartExample3().options}
           />
         </CardBody>
       </Card>

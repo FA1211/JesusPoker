@@ -18,9 +18,14 @@
 // ##############################
 // // // Chart variables
 // #############################
+import React, { Component } from 'react';
+import {getAllPlayerScores} from '../../api/django'
+
+class Chart extends Component {
+  state = {}
 
 // chartExample1 and chartExample2 options
-let chart1_2_options = {
+static chart1_2_options = {
   legend: {
     display: false
   },
@@ -34,6 +39,8 @@ let chart1_2_options = {
     intersect: 0,
     position: "nearest"
   },
+  aspectRatio:1.5,
+  maintainAspectRatio:false,
   responsive: true,
   scales: {
     yAxes: [
@@ -45,8 +52,7 @@ let chart1_2_options = {
           zeroLineColor: "transparent"
         },
         ticks: {
-          suggestedMin: 60,
-          suggestedMax: 125,
+          maxTicksLimit:5,
           padding: 20,
           fontColor: "#9a9a9a"
         }
@@ -69,11 +75,14 @@ let chart1_2_options = {
   }
 };
 
+static updatePlayerScores = () => {
+  getAllPlayerScores().then(data => this.setState({players:data}), console.log("free"))
+}
 // #########################################
 // // // used inside src/views/Dashboard.jsx
 // #########################################
-let chartExample1 = {
-  data1: canvas => {
+static chartExample1(players,scores){
+  return {data1: canvas => {
     let ctx = canvas.getContext("2d");
 
     let gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
@@ -93,9 +102,6 @@ let chartExample1 = {
         "JUL",
         "AUG",
         "SEP",
-        "OCT",
-        "NOV",
-        "DEC"
       ],
       datasets: [
         {
@@ -113,7 +119,7 @@ let chartExample1 = {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
-          data: [100, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 100]
+          data: [100, 70, 90, 70, 85, 60, 75, 60, 90]
         }
       ]
     };
@@ -208,13 +214,13 @@ let chartExample1 = {
       ]
     };
   },
-  options: chart1_2_options
-};
+  options: Chart.chart1_2_options
+}};
 
 // #########################################
 // // // used inside src/views/Dashboard.jsx
 // #########################################
-let chartExample2 = {
+static chartExample2 = {
   data: canvas => {
     let ctx = canvas.getContext("2d");
 
@@ -247,24 +253,24 @@ let chartExample2 = {
       ]
     };
   },
-  options: chart1_2_options
+  options: Chart.chart1_2_options
 };
 
 // #########################################
 // // // used inside src/views/Dashboard.jsx
 // #########################################
-let chartExample3 = {
-  data: canvas => {
+
+static chartExample3(players,scores){
+  return {data: canvas => {
     let ctx = canvas.getContext("2d");
-
     let gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
-
     gradientStroke.addColorStop(1, "rgba(72,72,176,0.1)");
     gradientStroke.addColorStop(0.4, "rgba(72,72,176,0.0)");
-    gradientStroke.addColorStop(0, "rgba(119,52,169,0)"); //purple colors
-
+    gradientStroke.addColorStop(0, "rgba(119,52,169,0)");
+     //purple color
+     console.log(players,scores)
     return {
-      labels: ["USA", "GER", "AUS", "UK", "RO", "BR"],
+      labels: players,
       datasets: [
         {
           label: "Countries",
@@ -275,13 +281,14 @@ let chartExample3 = {
           borderWidth: 2,
           borderDash: [],
           borderDashOffset: 0.0,
-          data: [53, 20, 10, 80, 100, 45]
+          data: scores
         }
       ]
-    };
-  },
+    }},
   options: {
-    maintainAspectRatio: false,
+    maintainAspectRatio: true,
+    aspectRatio:1.5,
+    responsive: true,
     legend: {
       display: false
     },
@@ -305,8 +312,7 @@ let chartExample3 = {
             zeroLineColor: "transparent"
           },
           ticks: {
-            suggestedMin: 60,
-            suggestedMax: 120,
+            
             padding: 20,
             fontColor: "#9e9e9e"
           }
@@ -317,9 +323,9 @@ let chartExample3 = {
           gridLines: {
             drawBorder: false,
             color: "rgba(225,78,202,0.1)",
-            zeroLineColor: "transparent"
           },
           ticks: {
+            maxTicksLimit:5,
             padding: 20,
             fontColor: "#9e9e9e"
           }
@@ -327,12 +333,12 @@ let chartExample3 = {
       ]
     }
   }
-};
+}};
 
 // #########################################
 // // // used inside src/views/Dashboard.jsx
 // #########################################
-const chartExample4 = {
+static chartExample4 = {
   data: canvas => {
     let ctx = canvas.getContext("2d");
 
@@ -417,10 +423,13 @@ const chartExample4 = {
     }
   }
 };
+}
 
-module.exports = {
-  chartExample1, // in src/views/Dashboard.jsx
-  chartExample2, // in src/views/Dashboard.jsx
-  chartExample3, // in src/views/Dashboard.jsx
-  chartExample4 // in src/views/Dashboard.jsx
-};
+export default Chart
+
+// module.exports = {
+//   chartExample1, // in src/views/Dashboard.jsx
+//   chartExample2, // in src/views/Dashboard.jsx
+//   chartExample3, // in src/views/Dashboard.jsx
+//   chartExample4 // in src/views/Dashboard.jsx
+// };

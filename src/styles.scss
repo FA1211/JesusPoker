@@ -1,0 +1,40 @@
+.btnFacebook { 
+    border-radius: 4px;
+    background: #343A40;
+    color:#343A40;
+    border:0px transparent;  
+    text-align: center;
+    margin:5px;
+    display: inline-block;
+  }
+
+.card-chart {
+  overflow: hidden;
+  .card-header{
+    .card-title{
+      i{
+        font-size: 16px;
+        margin-right: 5px;
+        margin-bottom: 3px;
+      }
+    }
+    .card-category{
+      margin-bottom: 5px;
+    }
+  }
+    .card-body{
+      padding-left: 5px;
+      padding-right: 5px;
+      .tab-space{
+        padding: 0;
+      }
+    }
+  .table{
+    margin-bottom: 0;
+
+    td{
+      border-top: none;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+  }
+}
