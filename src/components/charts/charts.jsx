@@ -76,7 +76,7 @@ static chart1_2_options = {
 };
 
 static updatePlayerScores = () => {
-  getAllPlayerScores().then(data => this.setState({players:data}), console.log("free"))
+  getAllPlayerScores().then(data => this.setState({players:data}))
 }
 // #########################################
 // // // used inside src/views/Dashboard.jsx
@@ -258,7 +258,6 @@ static chartExample3(players,scores){
     gradientStroke.addColorStop(0.4, "rgba(72,72,176,0.0)");
     gradientStroke.addColorStop(0, "rgba(119,52,169,0)");
      //purple color
-     console.log(players,scores)
     return {
       labels: players,
       datasets: [
