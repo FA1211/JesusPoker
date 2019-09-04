@@ -1,24 +1,28 @@
-let access_headers = {
+let headers_with_token = {
   Accept: "application/json",
   "Content-Type": "application/json",
   Authorization: "Token " + localStorage.getItem("django_token")
 }
 
+let headers_without_token = {
+  Accept: "application/json",
+  "Content-Type": "application/json"
+}
 
 export const getAllPlayerScores = () => {
-  return fetch(process.env.REACT_APP_BACKEND_URL + "/api/playerscores/")
+  return fetch(process.env.REACT_APP_BACKEND_URL + "/api/playerscores/", {headers:headers_without_token})
     .then(response => response.json())
 };
 
 export const getBestPlayerScores = () => {
-  return fetch(process.env.REACT_APP_BACKEND_URL + "/api/playerscores/get_max")
+  return fetch(process.env.REACT_APP_BACKEND_URL + "/api/playerscores/get_max", {headers:headers_without_token})
     .then(response => response.json())
     }
 
 export const submitForm = (form) => {
   fetch(process.env.REACT_APP_BACKEND_URL + "/api/forms/", {
     method: "post",
-    headers: access_headers,
+    headers: headers_with_token,
     body: JSON.stringify(form)
   }).then(response => {
     if (response.status === 201) {
@@ -31,7 +35,7 @@ export const submitForm = (form) => {
 };
 
 export const getAllSessions = () => {
-  return fetch(process.env.REACT_APP_BACKEND_URL + "/api/sessions?ordering=-date")
+  return fetch(process.env.REACT_APP_BACKEND_URL + "/api/sessions?ordering=-date", {headers:headers_without_token})
     .then(response => response.json())
 };
 
@@ -42,7 +46,8 @@ export const getDjangoToken = fb_access_token => {
     };
     return fetch(process.env.REACT_APP_BACKEND_URL + "/api/auth/login/", {
       method: "post",
-      body: JSON.stringify(login_body)
+      body: JSON.stringify(login_body),
+      headers:headers_without_token
     })
       .then(response => response.json())
   };
