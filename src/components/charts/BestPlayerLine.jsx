@@ -14,12 +14,10 @@ class BestPlayerLine extends Component {
 
   getBestPlayer = () => {
     getBestPlayerScores().then(data => {
-      console.log(data)
       let bestPlayerName = data["name"];
       let sessions = data["sessions"];
       let scores = sessions.map(sess => sess["result"]).slice(0, 10);
       let ticks = [...Array(scores.length).keys()];
-      console.log(ticks)
       this.setState({
         bestPlayer: bestPlayerName,
         labels: ticks,

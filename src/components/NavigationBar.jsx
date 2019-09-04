@@ -4,13 +4,17 @@ import { NavLink } from "react-router-dom";
 import { NavBarStyle, NavBarTextStyle } from "./styles.jsx";
 import FacebookLogin from "react-facebook-login";
 import "../styles.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+
 class NavigationBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
       fb_access_token: "",
       is_authed: false,
-      fb_user: this.props.name
+      fb_user: this.props.name,
+      is_logging_in: false
     };
   }
 
@@ -18,8 +22,12 @@ class NavigationBar extends Component {
     if (response.status === "unknown") {
       return;
     } else {
-      this.props.update_auth();
-      return this.props.getBackendToken(response["accessToken"]);
+      this.setState({ is_logging_in: true }, () => {
+        this.props.update_auth();
+        console.log(this.state);
+        this.props.getBackendToken(response["accessToken"]);
+        this.setState({ is_logging_in: false }, () => console.log(this.state));
+      });
     }
   };
 
@@ -31,7 +39,9 @@ class NavigationBar extends Component {
             Jesus Poker
           </NavbarBrand>
 
-          {!this.props.is_authed ? (
+          {this.state.is_logging_in ? (
+            <FontAwesomeIcon icon={faSpinner} size="xs" spin  />
+          ) : !this.props.is_authed ? (
             <FacebookLogin
               className="btnFacebook"
               appId={process.env.REACT_APP_STR_FACEBOOK_APP_ID}
@@ -42,9 +52,7 @@ class NavigationBar extends Component {
               size="small"
             />
           ) : (
-            <h6>
-              {this.props.name === "" ? "" : "Logged in as " + this.props.name}
-            </h6>
+            <h6> Logged In</h6>
           )}
         </Navbar>
 

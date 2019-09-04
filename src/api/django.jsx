@@ -20,9 +20,10 @@ export const getBestPlayerScores = () => {
     }
 
 export const submitForm = (form) => {
+  console.log(localStorage)
   fetch(process.env.REACT_APP_BACKEND_URL + "/api/forms/", {
     method: "post",
-    headers: headers_with_token,
+    headers: headers_without_token,
     body: JSON.stringify(form)
   }).then(response => {
     if (response.status === 201) {

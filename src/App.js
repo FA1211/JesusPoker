@@ -21,8 +21,9 @@ class App extends Component {
   saveDjangoToken = (fb_access_token) => {
     getDjangoToken(fb_access_token).then(data => {
       let django_token = data["access_token"];
+      if(django_token){
       localStorage.setItem("django_token", django_token);
-      this.setState({is_authed: true, authed_user:data["first_name"]})
+      this.setState({is_authed: true, authed_user:data["first_name"]})}
     })
   } 
 
