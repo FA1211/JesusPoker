@@ -26,7 +26,7 @@ class HomePage extends Component {
 
           <Row className="mt-4">
               <Col xs ="12" md="6">
-                <BestPlayerLine title="Current Leader">
+                <BestPlayerLine className="p-0 m-0" title="Current Leader">
                 </BestPlayerLine>
               </Col>
 

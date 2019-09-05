@@ -13,7 +13,19 @@ class BarChart extends Component {
 
   componentDidMount() {
     getAllPlayerScores().then(data => {
-      let players = data.map(obj => obj["name"]);
+      let names =[
+        "George",
+        "Philip",
+        "Nick T",
+        "Conall",
+        "Josh",
+        "Joao",
+        "Harry R",
+        "JT",
+        "Jacob",
+        "Kyle",
+        "Fadle",]
+      let players = data.map(obj => obj["name"]).filter(name => names.includes(name) );
       let scores = data.map(obj => obj["total_score"]);
       this.setState({
           labels: players,

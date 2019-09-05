@@ -12,7 +12,7 @@ class HomePage extends Component {
       <Container fluid  style={bgColor} >
           <Row xs={12} className="mt-2 mb-2">
             <Col xs={12} md="12">
-            <BestPlayerLine/>
+            <BestPlayerLine className="p-0 m-0"/>
             </Col>
           </Row>
           <Row xs={12} className="mt-2 mb-2">

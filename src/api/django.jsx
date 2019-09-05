@@ -1,11 +1,6 @@
-let headers_with_token = {
-  Accept: "application/json",
-  "Content-Type": "application/json",
-  Authorization: "Token " + localStorage.getItem("django_token")
-}
 
 let headers_without_token = {
-  Accept: "application/json",
+  "Accept": "application/json",
   "Content-Type": "application/json"
 }
 
@@ -20,7 +15,7 @@ export const getBestPlayerScores = () => {
     }
 
 export const submitForm = (form) => {
-  console.log(localStorage)
+  console.log(form)
   fetch(process.env.REACT_APP_BACKEND_URL + "/api/forms/", {
     method: "post",
     headers: headers_without_token,
@@ -30,6 +25,7 @@ export const submitForm = (form) => {
       alert("Session Submitted");
       window.location.reload();
     } else if (response.status === 500) {
+      console.log(response)
       alert("Failed! If this keeps happening then contact Fadle :/");
     }
   });

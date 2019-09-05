@@ -51,11 +51,6 @@ class SessionTable extends Component {
               </Button>
 
               <Collapse id={2} isOpen={this.checkOpen(index)}>
-                  <Card>
-                      <Button>
-                          Added by {session['creator']}
-                      </Button>
-                  </Card>
                 <Card
                   body
                   style={{ backgroundColor: "#5d84a9", borderColor: "#f7f0c7" }}

@@ -49,7 +49,7 @@ class Chart extends Component {
           gridLines: {
             drawBorder: false,
             color: "rgba(29,140,248,0.0)",
-            zeroLineColor: "transparent"
+            zeroLineColor: "rgba(255,255,255,0.1)",
           },
           ticks: {
             maxTicksLimit: 5,
@@ -64,11 +64,12 @@ class Chart extends Component {
           gridLines: {
             drawBorder: false,
             color: "rgba(29,140,248,0.1)",
-            zeroLineColor: "transparent"
+            
           },
           ticks: {
             padding: 20,
-            fontColor: "#9a9a9a"
+            fontColor: "#9a9a9a",
+            minRotation:20
           }
         }
       ]
@@ -96,7 +97,7 @@ class Chart extends Component {
           labels: labels_,
           datasets: [
             {
-              label: "My First dataset",
+              label: "Winnings",
               fill: true,
               backgroundColor: gradientStroke,
               borderColor: "#1f8ef1",
@@ -265,7 +266,7 @@ class Chart extends Component {
           labels: players,
           datasets: [
             {
-              label: "Countries",
+              label: "All time Balance",
               fill: true,
               backgroundColor: gradientStroke,
               hoverBackgroundColor: gradientStroke,
@@ -316,9 +317,9 @@ class Chart extends Component {
                 color: "rgba(225,78,202,0.1)"
               },
               ticks: {
-                maxTicksLimit: 5,
+                maxTicksLimit: 3,
                 padding: 20,
-                fontColor: "#9e9e9e"
+                fontColor: "#9e9e9e",
               }
             }
           ]
