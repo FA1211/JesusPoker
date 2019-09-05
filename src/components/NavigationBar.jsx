@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { Navbar, NavbarBrand } from "reactstrap";
 import { NavLink } from "react-router-dom";
 import { NavBarStyle, NavBarTextStyle } from "./styles.jsx";
-import FacebookLogin from "react-facebook-login";
+// import FacebookLogin from "react-facebook-login";
 import "../styles.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 class NavigationBar extends Component {
   constructor(props) {
@@ -39,7 +39,7 @@ class NavigationBar extends Component {
             Jesus Poker
           </NavbarBrand>
 
-          {this.state.is_logging_in ? (
+          {/* {this.state.is_logging_in ? (
             <FontAwesomeIcon icon={faSpinner} size="xs" spin  />
           ) : !this.props.is_authed ? (
             <FacebookLogin
@@ -52,8 +52,7 @@ class NavigationBar extends Component {
               size="small"
             />
           ) : (
-            <h6> Logged In</h6>
-          )}
+            <h6> Logged In</h6> */}
         </Navbar>
 
         <Navbar className="navbar-secondary border-bottom border-right border-dark m1-auto">

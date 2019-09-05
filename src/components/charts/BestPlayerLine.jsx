@@ -1,53 +1,79 @@
 import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
 import { Card, CardBody, CardTitle } from "reactstrap";
-import {getBestPlayerScores} from "../../api/django.jsx"
-import Chart from './charts';
-
+import { getBestPlayerScores } from "../../api/django.jsx";
+import Chart from "./charts";
 
 class BestPlayerLine extends Component {
   state = {
     bestPlayer: {},
     labels: [],
-    values:[],
-    shouldHide: true
+    values: [],
+    shouldHide: true,
+    dropdownOpen:false,
+    dropdownTitle: ""
   };
 
   getBestPlayer = () => {
     getBestPlayerScores().then(data => {
-      console.log(data)
-      let to2dp = num => {return Math.round(num*100)/100}
-      let options = {month: 'short', day: 'numeric' };
+      let to2dp = num => {
+        return Math.round(num * 100) / 100;
+      };
+      let options = { month: "short", day: "numeric" };
       let bestPlayerName = data["name"];
       let sessions = data["sessions"];
-      const cumulativeSum = (sum => value => sum += value)(0);
+      const cumulativeSum = (sum => value => (sum += value))(0);
 
-      let scores = sessions.map(sess => Number(sess["result"])).map(cumulativeSum).map(num => to2dp(num))//.slice(-10);
-      let ticks = sessions.map(sess => (new Date(sess["session"]).toLocaleDateString('en-GB',options)))//.slice(-10);
+      let scores = sessions
+        .map(sess => Number(sess["result"]))
+        .map(cumulativeSum)
+        .map(num => to2dp(num)).filter((_elem,index) => index%2===0);
+      let ticks = sessions.map(sess =>
+        new Date(sess["session"]).toLocaleDateString("en-GB", options)
+      ).filter((_elem,index) => index%2===0); //.slice(-10);
       this.setState({
         bestPlayer: bestPlayerName,
+        dropdownTitle: bestPlayerName,
         labels: ticks,
         values: scores,
-      shouldHide:false});
-    })
-  }
-
+        shouldHide: false
+      });
+    });
+  };
 
   componentDidMount() {
     this.getBestPlayer();
   }
 
+  toggle = () => {
+    this.setState(prevState => ({
+      dropdownOpen: !prevState.dropdownOpen
+    }));
+  }
+
+
   render() {
     const title = this.state.shouldHide
-      ? null : "Best Player is " + this.state.bestPlayer;
+      ? null
+      : "Best Player is " + this.state.bestPlayer;
     return (
-      <Card classname="card-chart pt-0 mt-0" body inverse style={{backgroundColor: '#27293D', borderColor: '#333' }}>
+      <Card 
+        classname="pb-0 mt-0 border-0"
+        body
+        inverse
+        style={{paddingBottom:0,  backgroundColor: "#27293D", borderColor: "#333" }}
+      >
         <CardBody className="p-0">
-          <CardTitle>{title}</CardTitle>
-          <Line style={{padding:0}}
-          height={null} width={null} 
-          data={Chart.chartExample1(this.state.labels,this.state.values).data1}
-          options={Chart.chartExample1().options}></Line>
+            <CardTitle>{title}</CardTitle>
+          <Line
+            style={{ padding: 0}}
+            height={null}
+            width={null}
+            data={
+              Chart.chartExample1(this.state.labels, this.state.values).data1
+            }
+            options={Chart.chartExample1().options}
+          ></Line>
         </CardBody>
       </Card>
     );

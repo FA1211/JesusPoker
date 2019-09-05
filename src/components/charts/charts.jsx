@@ -39,7 +39,7 @@ class Chart extends Component {
       intersect: 0,
       position: "nearest"
     },
-    aspectRatio: 5,
+    aspectRatio: 4,
     maintainAspectRatio: true,
     responsive: true,
     scales: {
@@ -67,9 +67,9 @@ class Chart extends Component {
             
           },
           ticks: {
-            padding: 20,
+            padding:30,
             fontColor: "#9a9a9a",
-            minRotation:20
+            maxTicksLimit:10
           }
         }
       ]
@@ -112,96 +112,6 @@ class Chart extends Component {
               pointHoverBorderWidth: 15,
               pointRadius: 4,
               data: values
-            }
-          ]
-        };
-      },
-      data2: canvas => {
-        let ctx = canvas.getContext("2d");
-
-        let gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
-
-        gradientStroke.addColorStop(1, "rgba(29,140,248,0.2)");
-        gradientStroke.addColorStop(0.4, "rgba(29,140,248,0.0)");
-        gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
-
-        return {
-          labels: [
-            "JAN",
-            "FEB",
-            "MAR",
-            "APR",
-            "MAY",
-            "JUN",
-            "JUL",
-            "AUG",
-            "SEP",
-            "OCT",
-            "NOV",
-            "DEC"
-          ],
-          datasets: [
-            {
-              label: "My First dataset",
-              fill: true,
-              backgroundColor: gradientStroke,
-              borderColor: "#1f8ef1",
-              borderWidth: 2,
-              borderDash: [],
-              borderDashOffset: 0.0,
-              pointBackgroundColor: "#1f8ef1",
-              pointBorderColor: "rgba(255,255,255,0)",
-              pointHoverBackgroundColor: "#1f8ef1",
-              pointBorderWidth: 20,
-              pointHoverRadius: 4,
-              pointHoverBorderWidth: 15,
-              pointRadius: 4,
-              data: [80, 120, 105, 110, 95, 105, 90, 100, 80, 95, 70, 120]
-            }
-          ]
-        };
-      },
-      data3: canvas => {
-        let ctx = canvas.getContext("2d");
-
-        let gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
-
-        gradientStroke.addColorStop(1, "rgba(29,140,248,0.2)");
-        gradientStroke.addColorStop(0.4, "rgba(29,140,248,0.0)");
-        gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
-
-        return {
-          labels: [
-            "JAN",
-            "FEB",
-            "MAR",
-            "APR",
-            "MAY",
-            "JUN",
-            "JUL",
-            "AUG",
-            "SEP",
-            "OCT",
-            "NOV",
-            "DEC"
-          ],
-          datasets: [
-            {
-              label: "My First dataset",
-              fill: true,
-              backgroundColor: gradientStroke,
-              borderColor: "#1f8ef1",
-              borderWidth: 2,
-              borderDash: [],
-              borderDashOffset: 0.0,
-              pointBackgroundColor: "#1f8ef1",
-              pointBorderColor: "rgba(255,255,255,0)",
-              pointHoverBackgroundColor: "#1f8ef1",
-              pointBorderWidth: 20,
-              pointHoverRadius: 4,
-              pointHoverBorderWidth: 15,
-              pointRadius: 4,
-              data: [60, 80, 65, 130, 80, 105, 90, 130, 70, 115, 60, 130]
             }
           ]
         };
@@ -253,7 +163,7 @@ class Chart extends Component {
   // // // used inside src/views/Dashboard.jsx
   // #########################################
 
-  static chartExample3(players, scores) {
+  static ScoresBarChart(players, scores, chartTitle) {
     return {
       data: canvas => {
         let ctx = canvas.getContext("2d");
@@ -266,7 +176,7 @@ class Chart extends Component {
           labels: players,
           datasets: [
             {
-              label: "All time Balance",
+              label: "",
               fill: true,
               backgroundColor: gradientStroke,
               hoverBackgroundColor: gradientStroke,
@@ -300,26 +210,30 @@ class Chart extends Component {
           yAxes: [
             {
               gridLines: {
+                //display:false,
                 drawBorder: false,
                 color: "rgba(225,78,202,0.1)",
-                zeroLineColor: "transparent"
+
               },
               ticks: {
-                padding: 20,
-                fontColor: "#9e9e9e"
-              }
+                padding: -40,
+                fontColor: "#9e9e9e",
+                fontSize: 10,
+              },
             }
           ],
           xAxes: [
             {
               gridLines: {
-                drawBorder: false,
-                color: "rgba(225,78,202,0.1)"
+                display: false,
+                //drawBorder: false,
+                color: "rgba(225,78,202,0.1)",
+                zeroLineColor: "rgba(225,78,202,0.1)"
               },
               ticks: {
                 maxTicksLimit: 3,
                 padding: 20,
-                fontColor: "#9e9e9e",
+                fontColor: "#9e9e9e"
               }
             }
           ]

@@ -9,6 +9,12 @@ export const getAllPlayerScores = () => {
     .then(response => response.json())
 };
 
+export const getCurrentPlayerScores = () => {
+  return fetch(process.env.REACT_APP_BACKEND_URL + "/api/playercurrentscores/", {headers:headers_without_token})
+    .then(response => response.json())
+};
+
+
 export const getBestPlayerScores = () => {
   return fetch(process.env.REACT_APP_BACKEND_URL + "/api/playerscores/get_max", {headers:headers_without_token})
     .then(response => response.json())
