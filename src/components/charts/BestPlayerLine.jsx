@@ -1,7 +1,18 @@
 import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
-import { Card, CardBody, CardTitle } from "reactstrap";
-import { getBestPlayerScores } from "../../api/django.jsx";
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  ButtonDropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle
+} from "reactstrap";
+import {
+  getBestPlayerScores,
+  getDetailPlayerScores
+} from "../../api/django.jsx";
 import Chart from "./charts";
 
 class BestPlayerLine extends Component {
@@ -10,12 +21,26 @@ class BestPlayerLine extends Component {
     labels: [],
     values: [],
     shouldHide: true,
-    dropdownOpen:false,
-    dropdownTitle: ""
+    dropdownOpen: false,
+    dropdownTitle: "",
+    names: [
+      "George",
+      "Philip",
+      "Nick T",
+      "Conall",
+      "Josh",
+      "Joao",
+      "Harry R",
+      "JT",
+      "Jacob",
+      "Kyle",
+      "Fadle"
+    ],
+    selectedPlayer: "JT"
   };
 
   getBestPlayer = () => {
-    getBestPlayerScores().then(data => {
+    getDetailPlayerScores(this.state.selectedPlayer).then(data => {
       let to2dp = num => {
         return Math.round(num * 100) / 100;
       };
@@ -27,10 +52,13 @@ class BestPlayerLine extends Component {
       let scores = sessions
         .map(sess => Number(sess["result"]))
         .map(cumulativeSum)
-        .map(num => to2dp(num)).filter((_elem,index) => index%2===0);
-      let ticks = sessions.map(sess =>
-        new Date(sess["session"]).toLocaleDateString("en-GB", options)
-      ).filter((_elem,index) => index%2===0); //.slice(-10);
+        .map(num => to2dp(num))
+        .filter((_elem, index) => index % 2 === 0);
+      let ticks = sessions
+        .map(sess =>
+          new Date(sess["session"]).toLocaleDateString("en-GB", options)
+        )
+        .filter((_elem, index) => index % 2 === 0); //.slice(-10);
       this.setState({
         bestPlayer: bestPlayerName,
         dropdownTitle: bestPlayerName,
@@ -42,31 +70,57 @@ class BestPlayerLine extends Component {
   };
 
   componentDidMount() {
-    this.getBestPlayer();
+    //this.getBestPlayer();
   }
 
   toggle = () => {
     this.setState(prevState => ({
       dropdownOpen: !prevState.dropdownOpen
     }));
+  };
+  changeValue = (e) => {
+    this.setState({ selectedPlayer: e.target.textContent },this.getBestPlayer);
   }
 
+  componentDidMount() {
+    this.getBestPlayer()
+  }
 
   render() {
     const title = this.state.shouldHide
       ? null
       : "Best Player is " + this.state.bestPlayer;
     return (
-      <Card 
-        classname="pb-0 mt-0 border-0"
+      <Card
+        className="pb-2 mt-0 border-0"
         body
         inverse
-        style={{paddingBottom:0,  backgroundColor: "#27293D", borderColor: "#333" }}
+        style={{
+          paddingBottom: 0,
+          backgroundColor: "#27293D",
+          borderColor: "#333"
+        }}
       >
         <CardBody className="p-0">
-            <CardTitle>{title}</CardTitle>
+          <CardTitle>
+            <ButtonDropdown
+              isOpen={this.state.dropdownOpen}
+              toggle={this.toggle}
+            >
+              <DropdownToggle caret>
+                {this.state.selectedPlayer}
+              </DropdownToggle>
+              <DropdownMenu>
+                {this.state.names.map(e => {
+                  return (
+                    <DropdownItem id={e} onClick={this.changeValue}>{e}</DropdownItem>
+                  );
+                })}
+              </DropdownMenu>
+            </ButtonDropdown>
+          </CardTitle>
           <Line
-            style={{ padding: 0}}
+            style={{ padding: 0 }}
             height={null}
             width={null}
             data={
