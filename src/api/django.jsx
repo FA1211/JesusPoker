@@ -17,7 +17,6 @@ export const getCurrentPlayerScores = () => {
 };
 
 export const getDetailPlayerScores = (name) => {
-  console.log(process.env.REACT_APP_BACKEND_URL + "/api/playerscores/get_individual?name=Fadle")
   return fetch(
     process.env.REACT_APP_BACKEND_URL + "/api/playerscores/get_individual?name="+name,
     { headers: headers_without_token }
@@ -32,7 +31,6 @@ export const getBestPlayerScores = () => {
 };
 
 export const submitForm = form => {
-  console.log(form);
   fetch(process.env.REACT_APP_BACKEND_URL + "/api/forms/", {
     method: "post",
     headers: headers_without_token,
