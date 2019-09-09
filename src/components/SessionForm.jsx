@@ -2,37 +2,38 @@ import React, { Component } from "react";
 import { Button, Card, CardText, Col, Container, Form, FormGroup, Input, InputGroup, InputGroupAddon, Label, Row } from "reactstrap";
 import Swal from 'sweetalert2';
 import { submitForm } from '../api/django.jsx';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 const tStyle = { color: "white", textAlign: "center", fontFamily: "Arial" };
 
 class SessionForm extends Component {
   state = {
     names: [
-    "George",
-    "Philip",
-    "Angus H",
-    "Nick T",
-    "Conall",
-    "Josh",
-    "Joao",
-    "Ethan",
-    "Joe J",
-    "Harry R",
-    "JT",
-    "Jacob",
-    "Max",
-    "Imy",
-    "Kyle",
-    "Erica",
-    "Hannah",
-    "Conrad",
-    "Fadle",
-    "Harry H",
-    "Lukas",
-    "Felix",
-    "Theo",
-    "Curtis",
-    "Izzy"    ],
+      "George",
+      "Philip",
+      "Angus H",
+      "Nick T",
+      "Conall",
+      "Josh",
+      "Joao",
+      "Ethan",
+      "Joe J",
+      "Harry R",
+      "JT",
+      "Jacob",
+      "Max",
+      "Imy",
+      "Kyle",
+      "Erica",
+      "Hannah",
+      "Conrad",
+      "Fadle",
+      "Harry H",
+      "Lukas",
+      "Felix",
+      "Theo",
+      "Curtis",
+      "Izzy"],
     colors: ["#081B33BF", "#152642BF", "#2F4562BF", "#767D92BF", "#353C51BF"],
     cSelected: [],
     values: {},
@@ -107,7 +108,7 @@ class SessionForm extends Component {
       if (form[key] === "") {
         delete form[key];
       }
-    } 
+    }
     if (Object.keys(form).length === 1) {
       Swal.fire({
         title: 'No Scores!',
@@ -146,14 +147,14 @@ class SessionForm extends Component {
 
           <Col xs={6}>
             <InputGroup>
-            <InputGroupAddon addonType="prepend">£</InputGroupAddon>
-            <Input
-              id={index}
-              name={playerName}
-              disabled={!this.state.cSelected.includes(index)}
-              type="number"
-              placeholder={this.ptext(index)}
-              onChange={e => this.handleChange(e)}/>
+              <InputGroupAddon addonType="prepend">£</InputGroupAddon>
+              <Input
+                id={index}
+                name={playerName}
+                disabled={!this.state.cSelected.includes(index)}
+                type="number"
+                placeholder={this.ptext(index)}
+                onChange={e => this.handleChange(e)} />
             </InputGroup>
           </Col>
         </Row>
@@ -201,6 +202,14 @@ class SessionForm extends Component {
                 </Button>
               </Col>
             </Row>
+            {/* <Row>
+              <ClipLoader
+                sizeUnit={"px"}
+                size={150}
+                color={'#123abc'}
+                loading={this.state.loading}
+              />
+            </Row> */}
           </FormGroup>
         </Form>
       </Container>
