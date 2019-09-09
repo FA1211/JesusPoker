@@ -1,21 +1,7 @@
 import React, { Component } from "react";
-import {
-  Button,
-  Card,
-  CardText,
-  Col,
-  Container,
-  Form,
-  FormGroup,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  Label,
-  Row
-} from "reactstrap";
-import {submitForm} from '../api/django.jsx'
-import Swal from 'sweetalert2'
+import { Button, Card, CardText, Col, Container, Form, FormGroup, Input, InputGroup, InputGroupAddon, Label, Row } from "reactstrap";
+import Swal from 'sweetalert2';
+import { submitForm } from '../api/django.jsx';
 
 const tStyle = { color: "white", textAlign: "center", fontFamily: "Arial" };
 
@@ -64,7 +50,7 @@ class SessionForm extends Component {
   ptext = selected => {
     const index = this.state.cSelected.indexOf(selected);
     if (index < 0) {
-      return "Did not Play";
+      return "Didn't Play";
     } else {
       return "";
     }

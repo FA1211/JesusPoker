@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Navbar, NavbarBrand } from "reactstrap";
 import { NavLink } from "react-router-dom";
-import { NavBarStyle, NavBarTextStyle } from "./styles.jsx";
+import { Navbar, NavbarBrand } from "reactstrap";
 import "../styles.css";
-
+import { NavBarStyle, NavBarTextStyle } from "./styles.jsx";
+import navLogo from '../assets/navbaricon.png'
 class NavigationBar extends Component {
 
   render() {
@@ -11,7 +11,8 @@ class NavigationBar extends Component {
       <div>
         <Navbar style={NavBarStyle} className="border-bottom border-dark" light>
           <NavbarBrand href="/" className="ml-2 mb-0 h1">
-            JC Poker
+            <img style={{}} alt="navbar icon" src={navLogo} width={40} height={40} />
+            <span style={{fontSize:16, paddingBottom:0, paddingLeft:10}}>JC Poker </span>
           </NavbarBrand>
         </Navbar>
 
