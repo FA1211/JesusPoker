@@ -1,18 +1,7 @@
 import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
-import {
-  Card,
-  CardBody,
-  CardTitle,
-  ButtonDropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle
-} from "reactstrap";
-import {
-  getBestPlayerScores,
-  getDetailPlayerScores
-} from "../../api/django.jsx";
+import { ButtonDropdown, Card, CardBody, CardTitle, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
+import { getDetailPlayerScores } from "../../api/django.jsx";
 import Chart from "./charts";
 
 class BestPlayerLine extends Component {
@@ -69,9 +58,6 @@ class BestPlayerLine extends Component {
     });
   };
 
-  componentDidMount() {
-    //this.getBestPlayer();
-  }
 
   toggle = () => {
     this.setState(prevState => ({
@@ -87,9 +73,6 @@ class BestPlayerLine extends Component {
   }
 
   render() {
-    const title = this.state.shouldHide
-      ? null
-      : "Best Player is " + this.state.bestPlayer;
     return (
       <Card
         className="pb-2 mt-0 border-0"

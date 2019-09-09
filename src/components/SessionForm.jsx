@@ -12,6 +12,7 @@ import {
   Row
 } from "reactstrap";
 import {submitForm} from '../api/django.jsx'
+import Swal from 'sweetalert2'
 
 const tStyle = { color: "white", textAlign: "center", fontFamily: "Arial" };
 
@@ -105,7 +106,12 @@ class SessionForm extends Component {
 
   validateForm = (form) => {
     if (!form.hasOwnProperty("date")) {
-      alert("Please Enter a Date");
+      Swal.fire({
+        title: 'Error!',
+        text: 'Do you want to continue',
+        type: 'error',
+        confirmButtonText: 'Cool'
+      })
       return;
     }
     for (var key in form) {
