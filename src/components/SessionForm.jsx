@@ -8,6 +8,9 @@ import {
   Form,
   FormGroup,
   Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
   Label,
   Row
 } from "reactstrap";
@@ -156,14 +159,16 @@ class SessionForm extends Component {
           </Col>
 
           <Col xs={6}>
+            <InputGroup>
+            <InputGroupAddon addonType="prepend">£</InputGroupAddon>
             <Input
               id={index}
               name={playerName}
               disabled={!this.state.cSelected.includes(index)}
               type="number"
               placeholder={this.ptext(index)}
-              onChange={e => this.handleChange(e)}
-            ></Input>
+              onChange={e => this.handleChange(e)}/>
+            </InputGroup>
           </Col>
         </Row>
       );
