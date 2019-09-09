@@ -104,11 +104,11 @@ class SessionForm extends Component {
     });
   };
 
-  validateForm = (form) => {
+  validateAndSubmitForm = (form) => {
     if (!form.hasOwnProperty("date")) {
       Swal.fire({
-        title: 'Error!',
-        text: 'Do you want to continue',
+        title: 'No Date!',
+        text: 'Please enter a date',
         type: 'error',
         confirmButtonText: 'Cool'
       })
@@ -120,14 +120,20 @@ class SessionForm extends Component {
       }
     } 
     if (Object.keys(form).length === 1) {
-      alert("Please enter some scores");
-      return;
+      Swal.fire({
+        title: 'No Scores!',
+        text: 'Please enter some scores',
+        type: 'warning',
+        confirmButtonText: 'Cool'
+      })
+      return
     }
+    submitForm(this.state.formData)
+
   }
 
   onSubmit = () => {
-    this.validateForm(this.state.formData)
-    submitForm(this.state.formData)
+    this.validateAndSubmitForm(this.state.formData)
   };
 
   createForm = () => {

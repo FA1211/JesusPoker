@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2'
 let headers_without_token = {
   Accept: "application/json",
   "Content-Type": "application/json"
@@ -37,11 +38,20 @@ export const submitForm = form => {
     body: JSON.stringify(form)
   }).then(response => {
     if (response.status === 201) {
-      alert("Session Submitted");
+      Swal.fire({
+        title: 'Session Submitted',
+        text: '',
+        type: 'Success',
+        confirmButtonText: 'Cool'
+      })
       window.location.reload();
-    } else if (response.status === 500) {
-      console.log(response);
-      alert("Failed! If this keeps happening then contact Fadle :/");
+    } else{
+      Swal.fire({
+        title: 'Submission failed',
+        text: "Error Code: " + response.status +  ". If this keeps happening then contact Fadle :/",
+        type: 'error',
+        confirmButtonText: 'Cool'
+      })
     }
   });
 };
