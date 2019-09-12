@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
-import { Navbar, NavbarBrand } from "reactstrap";
+import { DropdownItem, DropdownMenu, DropdownToggle, Navbar, NavbarBrand, UncontrolledDropdown } from "reactstrap";
 import navLogo from '../assets/navbaricon.png';
 import "../styles.css";
 import { NavBarStyle, NavBarTextStyle } from "./styles.jsx";
@@ -8,40 +8,38 @@ import { NavBarStyle, NavBarTextStyle } from "./styles.jsx";
 
 class NavigationBar extends Component {
 
-  state = {dropdownOpen: false}
+  state = {
+    dropdownOpen: false,
+    names: ["Fadle", "Joao"],
+    selectedName:"My Profile"
+  }
 
-  toggle = () => {this.setState({dropdownOpen:!this.state.dropdownOpen})}
-  
+  toggle = () => { this.setState({ dropdownOpen: !this.state.dropdownOpen }) }
+
   render() {
     return (
       <div>
-        
+
         <Navbar style={NavBarStyle} className="border-bottom border-dark" light>
           <NavbarBrand href="/" className="ml-2 mb-0 h1">
             <img style={{}} alt="navbar icon" src={navLogo} width={40} height={40} />
             <span style={{ fontSize: 16, paddingBottom: 0, paddingLeft: 10 }}>JC Poker </span>
           </NavbarBrand>
-          {/* <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Payments
+          <UncontrolledDropdown nav inNavbar>
+            <DropdownToggle nav caret>
+              {this.state.selectedName}
                 </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>
-                    <NavLink to="/view-payments">
-                    View Payments
-                    </NavLink>
-                  </DropdownItem>
-                  <DropdownItem>
-                    Option 2
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    Reset
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown> */}
+            <DropdownMenu right>
+              {this.state.names.map(name =>
+                <NavLink to={"/profile/?name=" + name}>
+                <DropdownItem onClick={() => this.setState({selectedName:name})}>
+                    {name}
+                </DropdownItem>
+                </NavLink>)}
+            </DropdownMenu>
+          </UncontrolledDropdown>
         </Navbar>
-       
+
 
         <Navbar className="navbar-secondary border-bottom border-right border-dark m1-auto">
           <NavLink
