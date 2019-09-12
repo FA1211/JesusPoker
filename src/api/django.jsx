@@ -32,7 +32,7 @@ export const getBestPlayerScores = () => {
 };
 
 export const submitForm = form => {
-  fetch(process.env.REACT_APP_BACKEND_URL + "/api/forms/", {
+  return fetch(process.env.REACT_APP_BACKEND_URL + "/api/forms/", {
     method: "post",
     headers: headers_without_token,
     body: JSON.stringify(form)
@@ -41,10 +41,11 @@ export const submitForm = form => {
       Swal.fire({
         title: 'Session Submitted',
         text: '',
-        type: 'Success',
-        confirmButtonText: 'Cool'
+        type: 'success',
+        confirmButtonText: 'Cool',
+        onClose: () => {window.location.reload()}
       })
-      window.location.reload();
+      //window.location.reload();
     } else{
       Swal.fire({
         title: 'Submission failed',

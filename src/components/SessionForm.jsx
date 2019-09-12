@@ -36,8 +36,8 @@ class SessionForm extends Component {
       "Izzy"],
     colors: ["#081B33BF", "#152642BF", "#2F4562BF", "#767D92BF", "#353C51BF"],
     cSelected: [],
-    values: {},
-    formData: {}
+    formData: {},
+    loading:false
   };
 
   randomColor = selected => {
@@ -118,12 +118,12 @@ class SessionForm extends Component {
       })
       return
     }
-    submitForm(this.state.formData)
-
+    submitForm(this.state.formData).then(() => this.setState({loading:false}))
+    
   }
 
   onSubmit = () => {
-    this.validateAndSubmitForm(this.state.formData)
+    this.setState({loading:true}, this.validateAndSubmitForm(this.state.formData))
   };
 
   createForm = () => {
@@ -194,22 +194,23 @@ class SessionForm extends Component {
           <FormGroup>
             <Row>
               <Col sm={12}>
-                <Button
+                {this.state.loading? null: <Button
                   onClick={this.onSubmit}
                   style={{ backgroundColor: "#589486" }}
-                  className="col-sm-12 col-md-6 offset-md-3 ">
+                  className="col-sm-12 col-md-6 offset-md-3"
+                  >
                   Submit
-                </Button>
+                </Button>}
               </Col>
             </Row>
-            {/* <Row>
+            <Row className="justify-content-center">
               <ClipLoader
                 sizeUnit={"px"}
-                size={150}
+                size={50}
                 color={'#123abc'}
                 loading={this.state.loading}
               />
-            </Row> */}
+              </Row>
           </FormGroup>
         </Form>
       </Container>
