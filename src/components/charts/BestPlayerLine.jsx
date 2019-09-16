@@ -94,9 +94,9 @@ class BestPlayerLine extends Component {
                 {this.state.selectedPlayer}
               </DropdownToggle>
               <DropdownMenu>
-                {this.state.names.map(e => {
+                {this.state.names.map(name => {
                   return (
-                    <DropdownItem id={e} onClick={this.changeValue}>{e}</DropdownItem>
+                    <DropdownItem key={name} id={name} onClick={this.changeValue}>{name}</DropdownItem>
                   );
                 })}
               </DropdownMenu>

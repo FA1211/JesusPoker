@@ -10,7 +10,19 @@ class NavigationBar extends Component {
 
   state = {
     dropdownOpen: false,
-    names: ["Fadle", "Joao"],
+    names: [
+      "George",
+      "Philip",
+      "Nick T",
+      "Conall",
+      "Josh",
+      "Joao",
+      "Harry R",
+      "JT",
+      "Jacob",
+      "Kyle",
+      "Fadle"
+    ],
     selectedName:"My Profile"
   }
 
@@ -23,25 +35,25 @@ class NavigationBar extends Component {
         <Navbar style={NavBarStyle} className="border-bottom border-dark" light>
           <NavbarBrand href="/" className="ml-2 mb-0 h1">
             <img style={{}} alt="navbar icon" src={navLogo} width={40} height={40} />
-            <span style={{ fontSize: 16, paddingBottom: 0, paddingLeft: 10 }}>JC Poker </span>
+            <span style={{fontSize: 16, paddingBottom: 0, paddingLeft: 10 }}>JC Poker </span>
           </NavbarBrand>
-          <UncontrolledDropdown nav inNavbar>
+          {/* <UncontrolledDropdown nav inNavbar>
             <DropdownToggle nav caret>
               {this.state.selectedName}
                 </DropdownToggle>
             <DropdownMenu right>
               {this.state.names.map(name =>
-                <NavLink to={"/profile/?name=" + name}>
+                <NavLink key={name} to={"/profile/?name=" + name}>
                 <DropdownItem onClick={() => this.setState({selectedName:name})}>
                     {name}
                 </DropdownItem>
                 </NavLink>)}
             </DropdownMenu>
-          </UncontrolledDropdown>
+          </UncontrolledDropdown> */}
         </Navbar>
 
 
-        <Navbar className="navbar-secondary border-bottom border-right border-dark m1-auto">
+        <Navbar className="navbar-secondary border-right border-bottom border-dark m1-auto" >
           <NavLink
             to="/add-session"
             style={NavBarTextStyle}

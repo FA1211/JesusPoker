@@ -42,7 +42,7 @@ class SessionTable extends Component {
           return (
             <Col sm={12}>
               <Button
-                style={{ borderColor: "#f7f0c7" }}
+                style={{ backgroundColor: "#605680", borderColor:"#7778A0" }}
                 className=" mt-0 mb-0 col-12"
                 color="primary"
                 onClick={() => this.toggle(index)}
