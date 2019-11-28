@@ -42,12 +42,12 @@ class BestPlayerLine extends Component {
         .map(sess => Number(sess["result"]))
         .map(cumulativeSum)
         .map(num => to2dp(num))
-        .filter((_elem, index) => index % 2 === 0);
+        .filter((_elem, index, arr) => (index % 2 === 0 || index === 0 || index === arr.length-1 ));
       let ticks = sessions
         .map(sess =>
           new Date(sess["session"]).toLocaleDateString("en-GB", options)
         )
-        .filter((_elem, index) => index % 2 === 0); //.slice(-10);
+        .filter((_elem, index, arr) => (index % 2 === 0 || index === 0 || index === arr.length-1)); //.slice(-10);
       this.setState({
         bestPlayer: bestPlayerName,
         dropdownTitle: bestPlayerName,
