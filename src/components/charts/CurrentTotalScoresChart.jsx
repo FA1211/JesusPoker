@@ -24,7 +24,8 @@ class CurrentTotalScoresChart extends Component {
         "JT",
         "Jacob",
         "Kyle",
-        "Fadle",]
+        "Fadle",
+        "Ellie"]
       let players = data.map(obj => obj["name"]).filter(name => names.includes(name) );
       let scores = data.map(obj => obj["current_score"]);
       this.setState({

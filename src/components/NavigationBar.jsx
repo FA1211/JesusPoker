@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
-import { DropdownItem, DropdownMenu, DropdownToggle, Navbar, NavbarBrand, UncontrolledDropdown } from "reactstrap";
+import {Navbar, NavbarBrand} from "reactstrap";
 import navLogo from '../assets/navbaricon.png';
 import "../styles.css";
 import { NavBarStyle, NavBarTextStyle } from "./styles.jsx";

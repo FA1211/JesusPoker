@@ -8,6 +8,9 @@ const tStyle = { color: "white", textAlign: "center", fontFamily: "Arial" };
 
 class SessionForm extends Component {
   state = {
+    chipCount:0,
+    cashCount:"",
+    balance:0,
     names: [
       "George",
       "Philip",
@@ -33,11 +36,12 @@ class SessionForm extends Component {
       "Felix",
       "Theo",
       "Curtis",
-      "Izzy"],
+      "Izzy",
+      "Ellie"],
     colors: ["#081B33BF", "#152642BF", "#2F4562BF", "#767D92BF", "#353C51BF"],
     cSelected: [],
     formData: {},
-    loading:false
+    loading: false
   };
 
   randomColor = selected => {
@@ -57,26 +61,18 @@ class SessionForm extends Component {
     }
   };
 
-  handleClick = e => {
-    e.preventDefault();
-  };
 
   handleChange = event => {
     let newFormData = { ...this.state.formData };
     newFormData[event.target.name] = event.target.value;
+    //Turn typed score into a float
+    let looseParseFloat = numAsStr => {return numAsStr===""? 0: parseFloat(numAsStr)}
+    let newBalance=looseParseFloat(Object.values(newFormData).reduce((a,b) => looseParseFloat(a)+looseParseFloat(b))).toFixed(2)
     this.setState({
       ...this.state,
+      balance:newBalance,
       formData: newFormData
     });
-  };
-
-  handleValue = index => {
-    const selectedIndex = this.state.cSelected.indexOf(index);
-    let newValue = this.state.value;
-    if (selectedIndex < 0) {
-      newValue = 0;
-    }
-    return newValue;
   };
 
   onCheckboxBtnClick = (selected, name) => {
@@ -118,13 +114,19 @@ class SessionForm extends Component {
       })
       return
     }
-    submitForm(this.state.formData).then(() => this.setState({loading:false}))
-    
+    submitForm(this.state.formData).then(() => this.setState({ loading: false }))
+
   }
 
   onSubmit = () => {
-    this.setState({loading:true}, this.validateAndSubmitForm(this.state.formData))
+    this.setState({ loading: true }, this.validateAndSubmitForm(this.state.formData))
   };
+
+  onConvert = (event) => {
+    event.preventDefault()
+    let cash = parseFloat(this.state.chipCount*2/100).toFixed(2)
+    this.setState({cashCount:cash})
+  }
 
   createForm = () => {
     return this.state.names.map((playerName, index) => {
@@ -188,17 +190,47 @@ class SessionForm extends Component {
               </Col>
             </Row>
           </FormGroup>
+          <FormGroup>
+            <Row xs={12}>
+              <Col xs={12} md={{size:8, offset:2}}>
+              <InputGroup>
+              <Input type="number" step="1" onChange={e => this.setState({chipCount:e.target.value})} placeholder="Chips" />
+                <InputGroupAddon addonType="prepend">
+                    <Button block onClick={this.onConvert} style={{backgroundColor:"#353C51BF"}}>
+                    Convert
+                  </Button>
+                </InputGroupAddon>
+                <Input placeholder="Cash" value={this.state.cashCount} onChange={() => {return}}/>
+              </InputGroup>
+              </Col>
+            </Row>
+          </FormGroup>
 
           <FormGroup>{this.createForm()}</FormGroup>
 
+          {/* <FormGroup>
+            <Row>
+              <Col xs={{size:8, offset:2}} md={{size:6, offset:3}}>
+            <InputGroup>
+              <InputGroupAddon style={{textAlign:""}} addonType="prepend">
+                Out By
+              </InputGroupAddon>
+              <Input value={Math.round(this.state.balance*50)}></Input>
+              <InputGroupAddon addonType="append">
+                Chips
+              </InputGroupAddon>
+            </InputGroup>
+            </Col>
+            </Row>
+          </FormGroup> */}
           <FormGroup>
             <Row>
               <Col sm={12}>
-                {this.state.loading? null: <Button
+                {this.state.loading ? null : <Button
                   onClick={this.onSubmit}
                   style={{ backgroundColor: "#589486" }}
                   className="col-sm-12 col-md-6 offset-md-3"
-                  >
+                >
                   Submit
                 </Button>}
               </Col>
@@ -210,7 +242,7 @@ class SessionForm extends Component {
                 color={'#123abc'}
                 loading={this.state.loading}
               />
-              </Row>
+            </Row>
           </FormGroup>
         </Form>
       </Container>
