@@ -18,11 +18,19 @@ class RunningColdCard extends Component {
     ],
     worstTrendingPlayer: "",
     worstTrendingPlayerScore: 0,
+    bottom3players:[]
   };
 
   componentDidMount() {
     this.getAllPlayerTrends()
   }
+
+  sortPlayerTrends = () => {
+    let trends = this.state.playerTrends;
+    let names = Object.keys(trends);
+    let bottom3Names = names.sort((a, b) => trends[a] - trends[b]).slice(0, 3);
+    this.setState({ bottom3players: bottom3Names });
+  };
 
   getAllPlayerTrends = () => {
     var currentMaxAvg = Number.MAX_SAFE_INTEGER
@@ -37,6 +45,12 @@ class RunningColdCard extends Component {
           const cumulativeSum = (sum => value => (sum += value))(0);
           var cumulativeScores = lastFiveScores.map(cumulativeSum)
           var recentAvg = to2dp(cumulativeScores[4]/5)
+          this.setState(
+            prevState => ({
+              playerTrends: { ...prevState.playerTrends, [name]: recentAvg }
+            }),
+            () => this.sortPlayerTrends()
+          );
 
           if (recentAvg < currentMaxAvg) {
             currentMaxAvg=recentAvg
@@ -58,21 +72,15 @@ class RunningColdCard extends Component {
       >
         <CardTitle style={{ textAlign: "center", fontSize:"1.5em" }}>Running Cold (over last 5 games)</CardTitle>
         <CardBody>
-          <Row style={{textAlign:"center"}}>
-            <Col
-              style={{ fontSize: "1.5em" }}
-              sm="6"
-              md={{ size: "3", offset: "1" }}
-            >
-              {this.state.worstTrendingPlayer}
-            </Col>
-            <Col
-              sm="6"
-              md={{ size: "4", offset: "4" }}
-            >
-              <p>{this.state.worstTrendingPlayerScore + " per session"}</p>
-            </Col>
-          </Row>
+          {this.state.bottom3players.map((player, index) => (
+            <Row key={index} style={{ textAlign: "center" }}>
+              <Col sm="4">{index+1  + ") "}</Col>
+              <Col sm="4">{player}</Col>
+              <Col sm="4">
+                <p>{this.state.playerTrends[player] + " per session"}</p>
+              </Col>{" "}
+            </Row>
+          ))}
         </CardBody>
       </Card>
     );

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Card, CardTitle, CardBody, Row, Col } from "reactstrap";
-import { getDetailPlayerScores } from '../../api/django';
+import { getDetailPlayerScores } from "../../api/django";
 class RunningHotCard extends Component {
   state = {
     names: [
@@ -17,32 +17,50 @@ class RunningHotCard extends Component {
       "Fadle"
     ],
     bestTrendingPlayer: "",
-    bestTrendingPlayerScore: 0,
+    playerTrends: {},
+    top3players: [],
+    bestTrendingPlayerScore: 0
   };
 
   componentDidMount() {
-    this.getAllPlayerTrends()
+    this.getAllPlayerTrends();
   }
 
-  getAllPlayerTrends = () => {
-    var currentMaxAvg = Number.MIN_SAFE_INTEGER
-    this.state.names.forEach(name =>
-      getDetailPlayerScores(name)
-      .then(data =>
-        {
-          let to2dp = num => {
-            return Math.round(num * 100) / 100;
-          };
-          var lastFiveScores = data['sessions'].slice(-5).map(session => Number(session['result']));
-          const cumulativeSum = (sum => value => (sum += value))(0);
-          var cumulativeScores = lastFiveScores.map(cumulativeSum)
-          var recentAvg = to2dp(cumulativeScores[4]/5)
+  sortPlayerTrends = () => {
+    let trends = this.state.playerTrends;
+    let names = Object.keys(trends);
+    let top3Names = names.sort((a, b) => trends[b] - trends[a]).slice(0, 3);
+    this.setState({ top3players: top3Names });
+  };
 
-          if (recentAvg > currentMaxAvg) {
-            currentMaxAvg=recentAvg
-            this.setState({bestTrendingPlayerScore:recentAvg, bestTrendingPlayer:name})
-          }
-        }).then(() => console.log(this.state)))
+  getAllPlayerTrends = () => {
+    var currentMaxAvg = Number.MIN_SAFE_INTEGER;
+    this.state.names.forEach(name =>
+      getDetailPlayerScores(name).then(data => {
+        let to2dp = num => {
+          return Math.round(num * 100) / 100;
+        };
+        var lastFiveScores = data["sessions"]
+          .slice(-5)
+          .map(session => Number(session["result"]));
+        var cumulativeSum = (sum => value => (sum += value))(0);
+        var cumulativeScores = lastFiveScores.map(cumulativeSum);
+        var recentAvg = to2dp(cumulativeScores[4] / 5);
+        this.setState(
+          prevState => ({
+            playerTrends: { ...prevState.playerTrends, [name]: recentAvg }
+          }),
+          () => this.sortPlayerTrends()
+        );
+        if (recentAvg > currentMaxAvg) {
+          currentMaxAvg = recentAvg;
+          this.setState({
+            bestTrendingPlayerScore: recentAvg,
+            bestTrendingPlayer: name
+          });
+        }
+      })
+    );
   };
 
   render() {
@@ -56,23 +74,19 @@ class RunningHotCard extends Component {
           borderColor: "#333"
         }}
       >
-        <CardTitle style={{ textAlign: "center", fontSize:"1.5em" }}>Running Hot (over last 5 games)</CardTitle>
+        <CardTitle style={{ textAlign: "center", fontSize: "1.5em" }}>
+          Running Hot (over last 5 games)
+        </CardTitle>
         <CardBody>
-          <Row style={{textAlign:"center"}}>
-            <Col
-              style={{ fontSize: "1.5em" }}
-              sm="6"
-              md={{ size: "3", offset: "1" }}
-            >
-              {this.state.bestTrendingPlayer}
-            </Col>
-            <Col
-              sm="6"
-              md={{ size: "4", offset: "4" }}
-            >
-              <p>{this.state.bestTrendingPlayerScore + " per session (last 5)"}</p>
-            </Col>
-          </Row>
+          {this.state.top3players.map((player, index) => (
+            <Row style={{ textAlign: "center" }}>
+              <Col sm="4">{index+1  + ") "}</Col>
+              <Col sm="4">{player}</Col>
+              <Col sm="4">
+                <p>{this.state.playerTrends[player] + " per session"}</p>
+              </Col>{" "}
+            </Row>
+          ))}
         </CardBody>
       </Card>
     );
