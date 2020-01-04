@@ -1,5 +1,5 @@
 # JesusPoker
-A website for the Jesus Spreadsheet Society
+A website for the our poker club
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
