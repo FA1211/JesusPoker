@@ -17,7 +17,7 @@ class RunningHotCard extends Component {
       "Fadle"
     ],
     bestTrendingPlayer: "",
-    bestTrendingPlaerScore: 0,
+    bestTrendingPlayerScore: 0,
   };
 
   componentDidMount() {
@@ -35,16 +35,14 @@ class RunningHotCard extends Component {
           };
           var lastFiveScores = data['sessions'].slice(-5).map(session => Number(session['result']));
           const cumulativeSum = (sum => value => (sum += value))(0);
-          var cumulativeScores = lastFiveScores.map(cumulativeSum).map(score => to2dp(score))
-          // console.log(lastFiveScores)
-          // console.log(cumulativeScores[4])
-          var recentAvg = cumulativeScores[4]
-          console.log(name + " : " + recentAvg)
+          var cumulativeScores = lastFiveScores.map(cumulativeSum)
+          var recentAvg = to2dp(cumulativeScores[4]/5)
+
           if (recentAvg > currentMaxAvg) {
-            currentMaxAvg = recentAvg
+            currentMaxAvg=recentAvg
+            this.setState({bestTrendingPlayerScore:recentAvg, bestTrendingPlayer:name})
           }
-          console.log("current max " + currentMaxAvg + ", Recent avg " + recentAvg)
-        }))
+        }).then(() => console.log(this.state)))
   };
 
   render() {
@@ -54,13 +52,13 @@ class RunningHotCard extends Component {
         inverse
         style={{
           paddingBottom: 0,
-          background: "#27293D",
+          backgroundImage: "linear-gradient(to bottom right, red, #27293D 20%)",
           borderColor: "#333"
         }}
       >
-        <CardTitle style={{ textAlign: "center" }}>Running Hot</CardTitle>
+        <CardTitle style={{ textAlign: "center", fontSize:"1.5em" }}>Running Hot (over last 5 games)</CardTitle>
         <CardBody>
-          <Row>
+          <Row style={{textAlign:"center"}}>
             <Col
               style={{ fontSize: "1.5em" }}
               sm="6"
@@ -69,11 +67,10 @@ class RunningHotCard extends Component {
               {this.state.bestTrendingPlayer}
             </Col>
             <Col
-              style={{ color: "red" }}
               sm="6"
               md={{ size: "4", offset: "4" }}
             >
-              <h1>{this.state.bestTrendingPlayerScore}</h1>
+              <p>{this.state.bestTrendingPlayerScore + " per session (last 5)"}</p>
             </Col>
           </Row>
         </CardBody>

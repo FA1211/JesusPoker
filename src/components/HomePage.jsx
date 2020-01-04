@@ -19,10 +19,10 @@ class HomePage extends Component {
           </Col>
         </Row>
         <Row>
-          <Col sm="6" md={{size:"4", offset:"1"}}>
+          <Col sm="6">
             <RunningHotCard />
           </Col>
-          <Col sm="6" md={{size:"4", offset:"2"}}>
+          <Col sm="6">
             <RunningColdCard />
           </Col>
         </Row>
