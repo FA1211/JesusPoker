@@ -75,7 +75,7 @@ class RunningHotCard extends Component {
         }}
       >
         <CardTitle style={{ textAlign: "center", fontSize: "1.5em" }}>
-          Running Hot (over last 5 games)
+          Running Hot <br/> (over their last 5 games)
         </CardTitle>
         <CardBody>
           {this.state.top3players.map((player, index) => (

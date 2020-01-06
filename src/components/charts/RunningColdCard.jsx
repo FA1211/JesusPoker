@@ -70,7 +70,7 @@ class RunningColdCard extends Component {
           borderColor: "#333"
         }}
       >
-        <CardTitle style={{ textAlign: "center", fontSize:"1.5em" }}>Running Cold (over last 5 games)</CardTitle>
+        <CardTitle style={{ textAlign: "center", fontSize:"1.5em" }}>Running Cold <br/> (over their last 5 games)</CardTitle>
         <CardBody>
           {this.state.bottom3players.map((player, index) => (
             <Row key={index} style={{ textAlign: "center" }}>
