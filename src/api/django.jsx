@@ -93,3 +93,11 @@ export const getBiggestLoss = () => {
     .then(response => response.json())
     .then(data => data.filter(res => res["session"] !== "2019-01-01"));
 };
+
+export const getSessionSum = () => {
+  return fetch(
+    process.env.REACT_APP_BACKEND_URL + "/api/sessionsresults",
+    { headers: headers_without_token }
+  )
+    .then(response => response.json());
+}

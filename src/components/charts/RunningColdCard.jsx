@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Card, CardTitle, CardBody, Row, Col } from "reactstrap";
-import { getDetailPlayerScores } from '../../api/django';
+import { getDetailPlayerScores, getSessionSum } from '../../api/django';
 class RunningColdCard extends Component {
   state = {
     names: [
@@ -23,6 +23,11 @@ class RunningColdCard extends Component {
 
   componentDidMount() {
     this.getAllPlayerTrends()
+    getSessionSum().then(data => {
+      // console.log(data)
+      let totalScore = Number(data.map(sesh => sesh.result).reduce((a,b) => Number.parseFloat(a) + Number.parseFloat(b),0)).toFixed(2);
+      console.log(totalScore)
+    })
   }
 
   sortPlayerTrends = () => {
