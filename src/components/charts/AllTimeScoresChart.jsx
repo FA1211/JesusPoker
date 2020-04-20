@@ -27,7 +27,7 @@ class AllTimeScoresChart extends Component {
         "Fadle",
         "Ellie"]
       let players = data.map(obj => obj["name"]).filter(name => names.includes(name));
-      let scores = data.filter(obj => names.includes(obj["name"])).map(obj => obj["total_score"])
+      let scores = data.filter(obj => names.includes(obj["name"])).map(obj => obj["total_score"].toFixed(2))
       this.setState({
           labels: players,
           values: scores,

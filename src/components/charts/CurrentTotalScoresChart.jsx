@@ -28,7 +28,7 @@ class CurrentTotalScoresChart extends Component {
         "Ellie"];
         console.log(data);
       let players = data.map(obj => obj["name"]).filter(name => names.includes(name) );
-      let scores = data.filter(obj => names.includes(obj["name"])).map(obj => obj["current_score"])
+      let scores = data.filter(obj => names.includes(obj["name"])).map(obj => obj["current_score"].toFixed(2))
       this.setState({
           labels: players,
           values: scores,

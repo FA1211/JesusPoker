@@ -31,7 +31,7 @@ class BestPlayerLine extends Component {
   getBestPlayer = () => {
     getDetailPlayerScores(this.state.selectedPlayer).then(data => {
       let to2dp = num => {
-        return Math.round(num * 100) / 100;
+        return num.toFixed(2);
       };
       let options = { month: "short", day: "numeric" };
       let bestPlayerName = data["name"];
