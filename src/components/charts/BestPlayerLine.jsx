@@ -75,6 +75,7 @@ class BestPlayerLine extends Component {
   }
 
   render() {
+    const isMobile = (userAgent = navigator.userAgent) => /Mobi/.test(userAgent);
     return (
       <Card
         className="pb-2 mt-0 border-0"
@@ -106,8 +107,8 @@ class BestPlayerLine extends Component {
           </CardTitle>
           <Line
             style={{ padding: 0 }}
-            height={null}
-            width={null}
+            height={isMobile() ? 500 : null}
+            width={isMobile() ? 500 : null}
             data={
               Chart.chartExample1(this.state.labels, this.state.values).data1
             }
