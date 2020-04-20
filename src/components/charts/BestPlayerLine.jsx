@@ -107,7 +107,7 @@ class BestPlayerLine extends Component {
           </CardTitle>
           <Line
             style={{ padding: 0 }}
-            height={isMobile() ? 500 : null}
+            height={isMobile() ? 400 : null}
             width={isMobile() ? 500 : null}
             data={
               Chart.chartExample1(this.state.labels, this.state.values).data1

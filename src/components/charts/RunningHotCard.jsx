@@ -80,9 +80,9 @@ class RunningHotCard extends Component {
         <CardBody>
           {this.state.top3players.map((player, index) => (
             <Row style={{ textAlign: "center" }}>
-              <Col sm="4">{index+1  + ") "}</Col>
-              <Col sm="4">{player}</Col>
-              <Col sm="4">
+              <Col xs="4">{index+1  + ") "}</Col>
+              <Col xs="4">{player}</Col>
+              <Col xs="4">
                 <p>{this.state.playerTrends[player] + " per session"}</p>
               </Col>{" "}
             </Row>
